@@ -5,8 +5,8 @@
     <head>
         <meta charset="utf-8">
         <title>Inscription</title>
-        <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/style.css" rel="stylesheet">
+        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -26,12 +26,12 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <input type="text" name="login" class="form-control" placeholder="Votre nom d'utilisateur" required="" autofocus="">
+                            <input type="text" name="nomUtilisateur" class="form-control" placeholder="Votre nom d'utilisateur" required="" autofocus="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <input type="password" name="password" class="form-control" placeholder="Votre mot de passe" required="">
+                            <input type="password" name="mdp" class="form-control" placeholder="Votre mot de passe" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -48,5 +48,8 @@
                 </form>
             </div>
         </div>
+
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

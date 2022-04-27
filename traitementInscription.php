@@ -1,23 +1,23 @@
 <?php
+include("includes/connectBDD.php");
 
-if (isset($_GET['nom']) && isset($_GET['prenom']) && isset($_GET['login']) && isset($_GET['password']) && isset($_GET['email'])) {
-    $name=$_GET['nom'];
-    $firstname=$_GET['prenom'];
-    $login = $_GET['login'];
-    $password = $_GET['password'];
-    $mail = $_GET['email'];
-    
-    include "connectBDD.php";
+if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['nomUtilisateur']) && isset($_POST['mdp']) && isset($_POST['email'])) {
+    $nom=$_POST['nom'];
+    $prenom=$_POST['prenom'];
+    $nomUtilisateur = $_POST['nomUtilisateur'];
+    $mdp = $_POST['mdp'];
+    $email = $_POST['email'];
     
     $sql = "INSERT INTO joueur(Nom, Prénom, NomUtilisateur, Mdp, Email) VALUES (?,?,?,?,?)";
-    $query = $pdo->prepare($sql);
+    $query = $bdd->prepare($sql);
     
+
     // vérifier si la requête d'insertion a réussi
-    if($query->execute([$name, $firstname,$login, $password, $mail])) {
-        echo 'Bienvenue ' .  $login . ', votre inscription est validée';
-      } else {
-        var_dump($query->errorInfo());
-        echo 'Échec de l\'opération d\'insertion';
+    if($query->execute([$nom, $prenom, $nomUtilisateur, $mdp, $email])) {
+      echo 'Bienvenue ' .  $nomUtilisateur . ', votre inscription est validée';
+    } else {
+      var_dump($query->errorInfo());
+      echo 'Échec de l\'opération d\'insertion';
     }
 }
 

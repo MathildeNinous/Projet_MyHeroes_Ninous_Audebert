@@ -1,4 +1,32 @@
-body {
-    padding-top: 60px;
+
+img {
+    border-radius: 30px;
+}
+
+.infoClick{
+    border-radius: 30px;
+    background-color: #A2D9CE	;
+    margin : 2px;
+    color:black;
+    text-align: center;
+}
+
+.navbar a{
+    margin-top:30px;
+    margin-bottom:10px;
+}
+
+.paragraphe{
+    border-radius: 30px;
+    border:solid 1px lightslategray;
+    text-align: center;
+}
+
+.card-title{
+    text-transform: uppercase;
+}
+
+a{
+    text-decoration: none;
 }
 

@@ -1,4 +1,7 @@
-<?php include("./includes/scripts.php");?>
+<?php
+    include("../includes/scripts.php");
+    require_once '../includes/head.php';
+?>
 
 <!doctype html>
     <html lang="fr">

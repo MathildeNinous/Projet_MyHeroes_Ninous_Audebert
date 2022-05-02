@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("includes/connectBDD.php");
 
 //TRAITEMENT
@@ -14,14 +15,12 @@ if (!empty($_POST['nomUtilisateur']) and !empty($_POST['mdp'])) {
         if ($ligne=$reponse->fetch()){
              // Authentication succes
             if ($ligne["NomUtilisateur"]==$nomUtilisateur && $ligne["Mdp"]==$mdp) {
-                session_start();
                 $_SESSION['nomUtilisateur'] = $nomUtilisateur;
                 echo("t'es connecté bg");
                 header('Location: includes/index.php');
             }
-            else {
-                $error = "Utilisateur non reconnu";
-            }
+        }else {
+            echo "Utilisateur non reconnu";
         }
     }
 }

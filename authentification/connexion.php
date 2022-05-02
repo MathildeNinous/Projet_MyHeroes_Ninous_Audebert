@@ -1,11 +1,7 @@
-<!doctype html>
-    <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>Connexion</title>
-        <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-    </head>
+<?php 
+    require_once '../includes/head.php';
+?>
+
 
     <body>
     <div class="container">
@@ -33,6 +29,27 @@
 
         <script src="lib/jquery/jquery.min.js"></script>
         <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Button -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popup">Afficher le pop-up</button>
+
+<!-- Pop-up -->
+  <div id="popup" class="modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p> Entête du pop-up </p>
+        </div>
+        <div class="modal-body">
+          <p> Je suis un magnifique pop-up</p>
+        </div>
+        <div class="modal-footer">
+          <p> Footer du pop-up</p>
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer le popup</button>
+        </div>
+      </div>
+    </div>
+  </div>
     </body>
 </html>
 

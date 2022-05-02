@@ -1,25 +1,93 @@
+.titre{
+    position:absolute;
+    height: 50%;
+    top: 50px;
+    bottom:0px;
+    left:0;
+    right:0;  
+    background-color: #A2D9CE	;
+    text-align: center;
+}
+
+.modal{
+    position: relative;
+}
+.titre *{
+    color:#044879;
+        position: relative;
+        top:25%;
+        bottom: 50%;
+}
+
+.cercle { 
+    position:absolute;
+    top:20%;
+    bottom:0;
+    left:40%;
+    right:0; 
+    height: 70%; 
+    width: 20%; 
+    background-color: white;
+    border: 5px solid #A2D9CE;
+    border-radius: 50%; 
+} 
+
+.container{
+    position:absolute;
+    margin-right:1% ;
+    margin-left:1% ;
+    width: 98%;
+    height: 50%;
+    top:15%;
+    bottom:0;
+    left:0;
+    right:0;  
+}
+
+.paragraphe{
+    top:60%;
+}
 
 img {
     border-radius: 30px;
 }
-
+.test{
+    overflow: visible;
+}
 .infoClick{
+    width:20%;
     border-radius: 30px;
     background-color: #A2D9CE	;
     margin : 2px;
     color:black;
     text-align: center;
 }
-
-.navbar a{
+.navbar{
+    background-color: #044879;
+    color: white;
+    top:0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+}
+.container{
+overflow: hidden;
+}
+.navbar a, .navbar p{
+    color: white;
     margin-top:30px;
     margin-bottom:10px;
+    
 }
 
-.paragraphe{
+.description{
     border-radius: 30px;
     border:solid 1px lightslategray;
     text-align: center;
+}
+
+.card{
+    margin-left: 10%;
 }
 
 .card-title{
@@ -29,4 +97,3 @@ img {
 a{
     text-decoration: none;
 }
-

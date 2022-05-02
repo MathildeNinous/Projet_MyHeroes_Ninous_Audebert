@@ -1,5 +1,5 @@
 <?php
-include("includes/connectBDD.php");
+include("../includes/connectBDD.php");
 
 if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['nomUtilisateur']) && isset($_POST['mdp']) && isset($_POST['email'])) {
     $nom=$_POST['nom'];

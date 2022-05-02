@@ -1,5 +1,8 @@
 <?php 
-    require_once '../includes/head.php';?>
+    require_once '../includes/head.php';
+    include '../includes/modalError.php';
+    include '../includes/modalHistoire.php';
+    ?>
 <body>
     <div class="container">
         <div class = "row justify-content-center">
@@ -7,14 +10,17 @@
                     $maRequete = "SELECT * FROM histoire";
                     $response = $bdd->query($maRequete);
                     while($ligne = $response->fetch()){
-                ?>
-                <a class = "myButton" href="../src/histoire.php?id=<?=$ligne['Id']?>">    
-                    <div class="infoClick card col-sm-4">
-                        <div class="card-body">
-                            <h3 class="card-title text-center" ><?php echo($ligne['Titre'])?></h3>
-                        </div>
-                    </div>
-                </a>
+                if (!empty($_SESSION['nomUtilisateur'])){?> 
+
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>','<?=$ligne['PremierParagraphe']?>');">
+
+                    <?php } else {?>
+                        
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#modalError" onclick="erreurConnexion()" >
+                    <?php } ?>
+
+                   <?php echo($ligne['Titre'])?>
+                </button>
                 <?php } ?>
         </div>
     </body>

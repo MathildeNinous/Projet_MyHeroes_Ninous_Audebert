@@ -17,7 +17,11 @@
             <h2 class="col-sm-4">BeHero</h2>
             <a class="col-sm-2" href="../src/index.php">Accueil</a>
             <a class="col-sm-2">Héro</a>
-            <p class="col-sm-2" ><a href="../authentification/connexion.php">Connexion</a><a href="../authentification/inscription.php">/Inscription</a></p>
+            <?php if (empty($_SESSION['nomUtilisateur'])){?> 
+            <p class="col-sm-2" ><a href="../authentification/connexion.php">Connexion</a><a href="../authentification/inscription.php">/Inscription</a></p> 
+            <?php } else { ?>
+                <p class="col-sm-2" ><a href="../authentification/deconnexion.php">Deconnexion</a>
+                <?php } ?>
         </nav>
     </header>
         <script src="../lib/jquery/jquery.min.js"></script>

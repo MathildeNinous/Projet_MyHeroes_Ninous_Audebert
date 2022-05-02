@@ -86,12 +86,16 @@ overflow: hidden;
     text-align: center;
 }
 
-.card{
-    margin-left: 10%;
+.histoire{
+    text-transform: uppercase;
+    border: solid white 3px;
+    border-radius: 30px;
+    background-color: #A2D9CE;
+    color:#044879;
 }
 
-.card-title{
-    text-transform: uppercase;
+.modal{
+    min-height: 100vh;
 }
 
 a{

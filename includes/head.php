@@ -13,15 +13,17 @@
         <title>BeHero </title>
     </head>
     <headear>
-        <nav class="navbar navbar-expand-lg navbar-fixed-top row ">
-            <h2 class="col-sm-4">BeHero</h2>
+        <nav class="navbar navbar-expand-lg navbar-fixed-top row">
+            <h2 class="col-sm-3">BeHero</h2>
             <a class="col-sm-2" href="../src/index.php">Accueil</a>
             <a class="col-sm-2">Héro</a>
             <?php if (empty($_SESSION['nomUtilisateur'])){?> 
-            <p class="col-sm-2" ><a href="../authentification/connexion.php">Connexion</a><a href="../authentification/inscription.php">/Inscription</a></p> 
+                <p class="col-sm-2" ><a href="../authentification/connexion.php">Connexion</a><a href="../authentification/inscription.php">/Inscription</a></p> 
             <?php } else { ?>
                 <p class="col-sm-2" ><a href="../authentification/deconnexion.php">Deconnexion</a>
-                <?php } ?>
+                <p class="col-sm-3"><?php echo $_SESSION['nomUtilisateur']?><img class="connexion" src="../img/connexion.png" alt="Connexion"></p>
+                
+            <?php } ?>
         </nav>
     </header>
         <script src="../lib/jquery/jquery.min.js"></script>

@@ -16,7 +16,8 @@ if (!empty($_POST['nomUtilisateur']) and !empty($_POST['mdp'])) {
              // Authentication succes
             if ($ligne["NomUtilisateur"]==$nomUtilisateur && $ligne["Mdp"]==$mdp) {
                 $_SESSION['nomUtilisateur'] = $nomUtilisateur;
-                echo("t'es connecté bg");
+                $_SESSION['idUtilisateur'] = $ligne['Id'];
+                echo("t'es connecté bg".$_SESSION['idUtilisateur']);
                 header('Location: ../src/index.php');
             }
         }else {

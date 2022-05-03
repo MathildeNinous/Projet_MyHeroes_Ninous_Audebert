@@ -12,7 +12,7 @@
                     while($ligne = $response->fetch()){
                 if (!empty($_SESSION['nomUtilisateur'])){?> 
 
-                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>','<?=$ligne['PremierParagraphe']?>');">
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>','<?=$ligne['Id']?>');">
 
                     <?php } else {?>
                         

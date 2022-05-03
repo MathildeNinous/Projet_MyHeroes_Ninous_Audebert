@@ -1,8 +1,34 @@
 <?php
     require_once '../includes/head.php';
-    $maRequete = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id=?");
-    $maRequete->execute([$_GET['id']]);
-        $ligne = $maRequete->fetch();
+    //on récupère les informations de l'histoire choisie
+    $maRequete = $bdd->prepare("SELECT * FROM histoire  WHERE Titre=?");
+    $maRequete->execute([$_GET['titre']]);
+        $histoire = $maRequete->fetch();
+
+    //On regarde si le joeur à déjà commencé cette histoire
+    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ?");
+    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur']]);
+    $compte = $monCompte->fetch();
+    if(!$compte){
+        $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement) VALUES (?,?,?)");
+        $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe']]);
+        $compte = $creerCompte->fetch();
+        $idParagraphe = $histoire['PremierParagraphe'];
+    }else{
+        if(!isset($_GET['id'])){
+            header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
+        }else{
+            $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=?");
+            $creerCompte->execute([$_GET['id']]);
+            $idParagraphe = $_GET['id'];
+        }
+        
+    }
+
+    //On cherche le paragraphe    
+    $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
+    $mesParagraphes->execute([$idParagraphe]);
+        $paragraphe = $mesParagraphes->fetch();
 ?>
 
 <body>
@@ -14,14 +40,14 @@
         <h1><?php echo $_GET['titre'] ?></h1>
     </div>
     <div class="container paragraphe">
-        <p class="description"><?php echo($ligne['Description']); ?></p>
+        <p class="description"><?php echo($paragraphe['Description']); ?></p>
         <div class="row">
             <?php 
                 $mesChoix = $bdd->prepare("SELECT * FROM reponse  WHERE IdParagrapheEntrant=?");
-                $mesChoix->execute([$ligne['Id']]);
+                $mesChoix->execute([$paragraphe['Id']]);
                 while($choix = $mesChoix->fetch()){
             ?>
-            <a class="choix" href="paragraphe.php?id=<?=$choix['IdParagrapheSortant']?>&titre=<?=$_GET['titre']?>">
+            <a class="choix" href="paragraphe.php?id=<?=$choix['IdParagrapheSortant']?>&titre=<?=$histoire['Titre']?>">
                 <div class="col-12 infoClick" style="width : 100%">
                     <p class="row"><?php echo $choix['Description']?></p>
                 </div>

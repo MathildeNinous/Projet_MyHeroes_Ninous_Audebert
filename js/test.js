@@ -1,7 +1,7 @@
-function afficherHistoire(titre, description, premierParagraphe) {
+function afficherHistoire(titre, description, histoire) {
     $(".modal-title").text(titre);
     $(".modal-body").text(description);
-    $(".submit").attr('href','paragraphe.php?id='+premierParagraphe+'&titre='+titre);
+    $(".submit").attr('href','paragraphe.php?titre='+titre);
     $(".submit").attr('onclick',"redirection()");
 }
 

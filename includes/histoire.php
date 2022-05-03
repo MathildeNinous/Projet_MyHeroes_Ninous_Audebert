@@ -4,16 +4,22 @@
     $maRequete->execute([$_GET['id']]);
         $ligne = $maRequete->fetch();
 
+    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ?");
+    $monCompte->execute([$_GET['id'],$_SESSION['nomUtilisateur']]]);
+    $histoire = $monCompte->fetch();
+
+    if(isset($histoire['Avancement'])){
+        $idParagraphe = $histoire['Avancement'];
+        
+    }else{
+        echo "caca";
+        $idParagraphe = $ligne['PremierParagraphe'];
+        $paragrapheEnCours = $bdd->prepare("UPDATE histoiredejoueur SET avancement=?");
+        $paragrapheEnCours->execute([$ligne['PremierParagraphe']]);
+    }
+
     //On cherche le paragraphe
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE IdHistoire=? AND Id = ?");
-    $mesParagraphes->execute([$_GET['id'],$ligne['PremierParagraphe']]);//TODO changer pour que le premier dépende de l'avancement du joueur
+    $mesParagraphes->execute([$_GET['id'],$idParagraphe]);
         $paragraphe = $mesParagraphes->fetch();
 ?>
-
-<body>
-    <div class="container">
-        <p><?php echo($ligne['Description']); ?></p>
-        <p><a class="reponse" href="paragraphe.php?id=<?=$paragraphe['Id']?>&titre=<?=$ligne['Titre']?>">Jouer</a></p>
-    </div>
-
-</body>

@@ -18,8 +18,8 @@
         if(!isset($_GET['id'])){
             header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
         }else{
-            $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=?");
-            $creerCompte->execute([$_GET['id']]);
+            $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=? where IdHistoire=?");
+            $creerCompte->execute([$_GET['id'],$histoire['Id']]);
             $idParagraphe = $_GET['id'];
         }
         

@@ -30,7 +30,7 @@
     $mesParagraphes->execute([$idParagraphe]);
         $paragraphe = $mesParagraphes->fetch();
 ?>
-bienvenue emma
+
 <body>
     <div class="titre">
         <p class="cercle"></p>

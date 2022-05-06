@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2022 at 09:08 AM
+-- Generation Time: May 06, 2022 at 03:58 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -34,7 +34,7 @@ CREATE TABLE `capacite` (
 --
 
 INSERT INTO `capacite` (`Id`, `Nom`, `NbPoint`) VALUES
-(1, 'Force', 3),
+(1, 'Puissance', 3),
 (2, 'Souplesse', 1),
 (3, 'Fatigue', -3),
 (4, 'Deshydratation', -2);
@@ -51,7 +51,7 @@ CREATE TABLE `histoire` (
   `Description` text NOT NULL,
   `NombreJoue` int(11) NOT NULL,
   `NombreVictoire` int(11) NOT NULL,
-  `PremierParagraphe` int(11) NOT NULL
+  `PremierParagraphe` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -59,9 +59,9 @@ CREATE TABLE `histoire` (
 --
 
 INSERT INTO `histoire` (`Id`, `Titre`, `Description`, `NombreJoue`, `NombreVictoire`, `PremierParagraphe`) VALUES
-(1, 'Titre1', 'histoire1', 0, 0, 1),
-(2, 'titre2', 'histoire2', 0, 0, 5),
-(3, 'Histoire3', 'je suis histoire 3', 0, 0, 0),
+(1, 'Titre1', 'test histoire 1', 0, 0, 1),
+(2, 'titre2', 'test histoire 2\nje suis le paragraphe 1', 0, 0, 5),
+(3, 'Histoire3', 'histoire 3\r\rje suis le paragraphe 3\rje suis le paragraphe 2\rje suis le paragraphe 3', 0, 0, 1),
 (4, 'Histoire4', 'je suis histoire 4', 0, 0, 0),
 (5, 'Titre 5', 'histoire 5', 0, 0, 0);
 
@@ -76,13 +76,24 @@ CREATE TABLE `histoiredejoueur` (
   `IdHistoire` int(11) NOT NULL,
   `Etat` varchar(25) NOT NULL,
   `Point` int(11) NOT NULL,
-  `PointForce` int(11) NOT NULL,
-  `PoinSouplesse` int(11) NOT NULL,
-  `PointFatigue` int(11) NOT NULL,
+  `Puissance` int(11) NOT NULL,
+  `Souplesse` int(11) NOT NULL,
+  `Fatigue` int(11) NOT NULL,
   `Id` int(11) NOT NULL,
   `Avancement` int(11) NOT NULL,
-  `PointDeshydratation` int(11) NOT NULL
+  `Deshydratation` int(11) NOT NULL,
+  `Mort` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `histoiredejoueur`
+--
+
+INSERT INTO `histoiredejoueur` (`IdJoueur`, `IdHistoire`, `Etat`, `Point`, `Puissance`, `Souplesse`, `Fatigue`, `Id`, `Avancement`, `Deshydratation`, `Mort`) VALUES
+(3, 1, '', 0, 15, 4, -9, 27, 4, -46, 0),
+(3, 2, '', 0, 0, 0, 0, 28, 5, 0, 0),
+(3, 3, '', 0, 0, 0, 0, 29, 3, 0, 0),
+(4, 1, '', 0, 3, 1, -3, 32, 4, -2, 0);
 
 -- --------------------------------------------------------
 
@@ -107,7 +118,11 @@ CREATE TABLE `joueur` (
 
 INSERT INTO `joueur` (`Id`, `NiveauDeJeu`, `Mdp`, `NomUtilisateur`, `Droit`, `Nom`, `Prénom`, `Email`) VALUES
 (2, 0, 'knrkntrn', 'mninous', 0, 'Ninous', 'Mathilde', 'mninous@ensc.fr'),
-(3, 0, 'test', 'alaudebert', 0, 'Audebert', 'Alex', 'audebert.alex33@gmail.com');
+(3, 0, 'test', 'alaudebert', 0, 'Audebert', 'Alex', 'audebert.alex33@gmail.com'),
+(4, 0, 'test', 'shaclem', 0, 'Lasserre', 'Clément', 'clement.lasserre@sfr.fr'),
+(6, 0, 'test', 'emorando', 0, 'Morando', 'Emma', 'emorando@ensc.fr'),
+(22, 0, 'test', 'laudebert', 0, 'Audebert', 'lena', 'audebert.alex33@gmail.com'),
+(24, 0, 'test', 'test', 0, 'test', 'test', 'test@test.fr');
 
 -- --------------------------------------------------------
 
@@ -127,10 +142,10 @@ CREATE TABLE `paragraphe` (
 --
 
 INSERT INTO `paragraphe` (`Id`, `Description`, `IdHistoire`, `Capacite`) VALUES
-(1, 'je suis le paragraphe 1', 1, 0),
-(2, 'je suis le paragraphe 2', 1, 0),
-(3, 'je suis le paragraphe 3', 1, 0),
-(4, 'je suis le paragraphe 4', 1, 0),
+(1, 'je suis le paragraphe 1\r\nje suis un test de saut de ligne', 1, 1),
+(2, 'je suis le paragraphe 2', 1, 2),
+(3, 'je suis le paragraphe 3', 1, 3),
+(4, 'je suis le paragraphe 4', 1, 4),
 (5, 'je suis le paragraphe 1', 2, 0),
 (6, 'je suis le paragraphe 2', 2, 0),
 (7, 'je suis le paragraphe 3', 2, 0),
@@ -154,23 +169,9 @@ CREATE TABLE `reponse` (
 --
 
 INSERT INTO `reponse` (`Id`, `Description`, `IdParagrapheEntrant`, `IdParagrapheSortant`) VALUES
-(1, 'reponse1', 1, 2),
-(3, 'reponse1', 1, 4),
-(4, 'reponse1', 2, 2),
-(5, 'reponse1', 2, 3),
-(6, 'reponse1', 2, 4),
-(7, 'reponse1', 3, 2),
-(8, 'reponse1', 3, 3),
-(9, 'reponse1', 3, 4),
-(10, 'reponse1', 5, 2),
-(11, 'reponse1', 5, 3),
-(12, 'reponse1', 5, 4),
-(13, 'reponse1', 6, 2),
-(14, 'reponse1', 6, 3),
-(15, 'reponse1', 6, 4),
-(16, 'reponse1', 7, 2),
-(17, 'reponse1', 7, 3),
-(18, 'reponse1', 7, 4);
+(22, 'reponse 1', 1, 2),
+(23, 'reponse 2', 2, 3),
+(24, 'reponse 3', 3, 4);
 
 --
 -- Indexes for dumped tables
@@ -207,15 +208,13 @@ ALTER TABLE `joueur`
 -- Indexes for table `paragraphe`
 --
 ALTER TABLE `paragraphe`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `MonHistoire` (`IdHistoire`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indexes for table `reponse`
 --
 ALTER TABLE `reponse`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `MonParagraphe` (`IdParagrapheEntrant`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -237,13 +236,13 @@ ALTER TABLE `histoire`
 -- AUTO_INCREMENT for table `histoiredejoueur`
 --
 ALTER TABLE `histoiredejoueur`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `joueur`
 --
 ALTER TABLE `joueur`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `paragraphe`
@@ -255,7 +254,7 @@ ALTER TABLE `paragraphe`
 -- AUTO_INCREMENT for table `reponse`
 --
 ALTER TABLE `reponse`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables

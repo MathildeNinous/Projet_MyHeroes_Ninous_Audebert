@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <textarea class="form-control" id="description" rows="3" placeholder="Description de l'histoire" required="" autofocus=""></textarea>    
+                            <textarea class="form-control" name="description" rows="3" placeholder="Description de l'histoire" required="" autofocus=""></textarea>    
                         </div>
                     </div>
                     <div class="form-group">

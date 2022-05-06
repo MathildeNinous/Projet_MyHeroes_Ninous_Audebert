@@ -1,47 +1,6 @@
-.titre{
-    position:absolute;
-    height: 50%;
-    top: 50px;
-    bottom:0px;
-    left:0;
-    right:0;  
+.titre{ 
     background-color: #A2D9CE	;
     text-align: center;
-}
-
-.modal{
-    position: relative;
-}
-.titre *{
-    color:#044879;
-        position: relative;
-        top:25%;
-        bottom: 50%;
-}
-
-.cercle { 
-    position:absolute;
-    top:20%;
-    bottom:0;
-    left:40%;
-    right:0; 
-    height: 70%; 
-    width: 20%; 
-    background-color: white;
-    border: 5px solid #A2D9CE;
-    border-radius: 50%; 
-} 
-
-.container{
-    position:absolute;
-    margin-right:1% ;
-    margin-left:1% ;
-    width: 98%;
-    height: 50%;
-    top:15%;
-    bottom:0;
-    left:0;
-    right:0;  
 }
 
 .paragraphe{
@@ -62,35 +21,13 @@ img {
     color:black;
     text-align: center;
 }
-.navbar{
-    background-color: #044879;
-    color: white;
-    top:0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-}
-.container{
-overflow: hidden;
-}
-.navbar a, .navbar p{
-    color: white;
-    margin-top:3%;
-    margin-bottom:10px;
-    
-}
-.navbar .connexion{
-    margin-top: -10%;
-    width:20%;
-    height: 20%;
-}
-.navbar *{
-    padding: 0px;
-}
+
 
 .description{
+    margin : 3px;
     border-radius: 30px;
     border:solid 1px lightslategray;
+    background-color: white;
     text-align: center;
 }
 
@@ -100,12 +37,4 @@ overflow: hidden;
     border-radius: 30px;
     background-color: #A2D9CE;
     color:#044879;
-}
-
-.modal{
-    min-height: 100vh;
-}
-
-a{
-    text-decoration: none;
 }

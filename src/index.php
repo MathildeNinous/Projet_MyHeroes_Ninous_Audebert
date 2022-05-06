@@ -1,6 +1,6 @@
 <?php 
     require_once '../includes/head.php';
-    include '../includes/modalError.php';
+    include '../includes/modalErrors.php';
     include '../includes/modalHistoire.php';
     ?>
 <body>
@@ -11,15 +11,14 @@
                     $response = $bdd->query($maRequete);
                     while($ligne = $response->fetch()){
                 if (!empty($_SESSION['nomUtilisateur'])){?> 
-
-                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>','<?=$ligne['Id']?>');">
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistoire" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>');">
 
                     <?php } else {?>
                         
-                <button type="button" class="histoire col-sm-4 btn btn-primary" data-toggle="modal" data-target="#modalError" onclick="erreurConnexion()" >
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalError">
                     <?php } ?>
 
-                   <?php echo($ligne['Titre'])?>
+                   <?=$ligne['Titre']?>
                 </button>
                 <?php } ?>
         </div>

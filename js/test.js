@@ -1,12 +1,7 @@
-function afficherHistoire(titre, description, histoire) {
+function afficherHistoire(titre, description) {
     $(".modal-title").text(titre);
     $(".modal-body").text(description);
     $(".submit").attr('href','paragraphe.php?titre='+titre);
-    $(".submit").attr('onclick',"redirection()");
-}
-
-function erreurConnexion() {
-    $(".submit").attr('href','../authentification/connexion.php');
     $(".submit").attr('onclick',"redirection()");
 }
 

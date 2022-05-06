@@ -18,15 +18,18 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['nomUtilisat
       echo 'Bienvenue ' .  $nomUtilisateur . ', votre inscription est validée';
 
       $_SESSION['nomUtilisateur'] = $nomUtilisateur;
-      //TODO faire en sorte de mettre l'id utilisateur
-      header("Location: ../src/index.php");
-      Exit();
-
+      
+      $monCompte = $bdd->prepare("SELECT * FROM joueur WHERE NomUtilisateur = ?");
+      $monCompte->execute(array($_SESSION['nomUtilisateur']));
+      $compte = $monCompte->fetch();
+        $_SESSION['idUtilisateur']=$compte['Id'];
+        header("Location: ../src/index.php");
+      }
 
     } else {
       var_dump($query->errorInfo());
       echo 'Échec de l\'opération d\'insertion';
-    }
+    
 }
 
 ?>

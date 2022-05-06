@@ -12,7 +12,9 @@
     if(!$compte){
         $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement) VALUES (?,?,?)");
         $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe']]);
-        $compte = $creerCompte->fetch();
+        $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ?");
+        $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur']]);
+        $compte = $monCompte->fetch();
         $idParagraphe = $histoire['PremierParagraphe'];
     }else{
         if(!isset($_GET['id'])){
@@ -22,14 +24,14 @@
             $creerCompte->execute([$_GET['id'],$compte['Id']]);
             $idParagraphe = $_GET['id'];
         }
-        
     }
 
     //On cherche le paragraphe    
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
+    //on récupère la capacité du paragraphe
     $mesParagraphes->execute([$idParagraphe]);
     $paragraphe = $mesParagraphes->fetch();
-    //on récupère la capacité du paragraphe
+
     $capacites = $bdd->prepare("SELECT * FROM capacite  WHERE Id = ?");
     $capacites->execute([$paragraphe['Capacite']]);
     $capacite = $capacites->fetch();

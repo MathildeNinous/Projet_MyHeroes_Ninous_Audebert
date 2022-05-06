@@ -2,17 +2,17 @@
 -- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mer. 27 avr. 2022 à 12:00
--- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.4
+-- Host: 127.0.0.1
+-- Generation Time: May 03, 2022 at 09:08 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- Base de données : `behero`
+-- Database: `behero`
 --
 CREATE DATABASE IF NOT EXISTS `behero` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `behero`;
@@ -20,7 +20,29 @@ USE `behero`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `histoire`
+-- Table structure for table `capacite`
+--
+
+CREATE TABLE `capacite` (
+  `Id` int(11) NOT NULL,
+  `Nom` varchar(50) NOT NULL,
+  `NbPoint` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `capacite`
+--
+
+INSERT INTO `capacite` (`Id`, `Nom`, `NbPoint`) VALUES
+(1, 'Force', 3),
+(2, 'Souplesse', 1),
+(3, 'Fatigue', -3),
+(4, 'Deshydratation', -2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `histoire`
 --
 
 CREATE TABLE `histoire` (
@@ -28,13 +50,25 @@ CREATE TABLE `histoire` (
   `Titre` varchar(50) NOT NULL,
   `Description` text NOT NULL,
   `NombreJoue` int(11) NOT NULL,
-  `NombreVictoire` int(11) NOT NULL
+  `NombreVictoire` int(11) NOT NULL,
+  `PremierParagraphe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `histoire`
+--
+
+INSERT INTO `histoire` (`Id`, `Titre`, `Description`, `NombreJoue`, `NombreVictoire`, `PremierParagraphe`) VALUES
+(1, 'Titre1', 'histoire1', 0, 0, 1),
+(2, 'titre2', 'histoire2', 0, 0, 5),
+(3, 'Histoire3', 'je suis histoire 3', 0, 0, 0),
+(4, 'Histoire4', 'je suis histoire 4', 0, 0, 0),
+(5, 'Titre 5', 'histoire 5', 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `histoiredejoueur`
+-- Table structure for table `histoiredejoueur`
 --
 
 CREATE TABLE `histoiredejoueur` (
@@ -42,17 +76,18 @@ CREATE TABLE `histoiredejoueur` (
   `IdHistoire` int(11) NOT NULL,
   `Etat` varchar(25) NOT NULL,
   `Point` int(11) NOT NULL,
-  `PointEndurance` int(11) NOT NULL,
-  `PointHabilite` int(11) NOT NULL,
-  `PointVistesse` int(11) NOT NULL,
+  `PointForce` int(11) NOT NULL,
+  `PoinSouplesse` int(11) NOT NULL,
+  `PointFatigue` int(11) NOT NULL,
   `Id` int(11) NOT NULL,
-  `Avancement` int(11) NOT NULL
+  `Avancement` int(11) NOT NULL,
+  `PointDeshydratation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `joueur`
+-- Table structure for table `joueur`
 --
 
 CREATE TABLE `joueur` (
@@ -67,48 +102,94 @@ CREATE TABLE `joueur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `joueur`
+-- Dumping data for table `joueur`
 --
 
 INSERT INTO `joueur` (`Id`, `NiveauDeJeu`, `Mdp`, `NomUtilisateur`, `Droit`, `Nom`, `Prénom`, `Email`) VALUES
-(2, 0, 'knrkntrn', 'mninous', 0, 'Ninous', 'Mathilde', 'mninous@ensc.fr');
+(2, 0, 'knrkntrn', 'mninous', 0, 'Ninous', 'Mathilde', 'mninous@ensc.fr'),
+(3, 0, 'test', 'alaudebert', 0, 'Audebert', 'Alex', 'audebert.alex33@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `paragraphe`
+-- Table structure for table `paragraphe`
 --
 
 CREATE TABLE `paragraphe` (
   `Id` int(11) NOT NULL,
   `Description` text NOT NULL,
-  `IdHistoire` int(11) NOT NULL
+  `IdHistoire` int(11) NOT NULL,
+  `Capacite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paragraphe`
+--
+
+INSERT INTO `paragraphe` (`Id`, `Description`, `IdHistoire`, `Capacite`) VALUES
+(1, 'je suis le paragraphe 1', 1, 0),
+(2, 'je suis le paragraphe 2', 1, 0),
+(3, 'je suis le paragraphe 3', 1, 0),
+(4, 'je suis le paragraphe 4', 1, 0),
+(5, 'je suis le paragraphe 1', 2, 0),
+(6, 'je suis le paragraphe 2', 2, 0),
+(7, 'je suis le paragraphe 3', 2, 0),
+(8, 'je suis le paragraphe 4', 2, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reponse`
+-- Table structure for table `reponse`
 --
 
 CREATE TABLE `reponse` (
   `Id` int(11) NOT NULL,
   `Description` text NOT NULL,
-  `IdParagraphe` int(11) NOT NULL
+  `IdParagrapheEntrant` int(11) NOT NULL,
+  `IdParagrapheSortant` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Index pour les tables déchargées
+-- Dumping data for table `reponse`
+--
+
+INSERT INTO `reponse` (`Id`, `Description`, `IdParagrapheEntrant`, `IdParagrapheSortant`) VALUES
+(1, 'reponse1', 1, 2),
+(3, 'reponse1', 1, 4),
+(4, 'reponse1', 2, 2),
+(5, 'reponse1', 2, 3),
+(6, 'reponse1', 2, 4),
+(7, 'reponse1', 3, 2),
+(8, 'reponse1', 3, 3),
+(9, 'reponse1', 3, 4),
+(10, 'reponse1', 5, 2),
+(11, 'reponse1', 5, 3),
+(12, 'reponse1', 5, 4),
+(13, 'reponse1', 6, 2),
+(14, 'reponse1', 6, 3),
+(15, 'reponse1', 6, 4),
+(16, 'reponse1', 7, 2),
+(17, 'reponse1', 7, 3),
+(18, 'reponse1', 7, 4);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `histoire`
+-- Indexes for table `capacite`
+--
+ALTER TABLE `capacite`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `histoire`
 --
 ALTER TABLE `histoire`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Index pour la table `histoiredejoueur`
+-- Indexes for table `histoiredejoueur`
 --
 ALTER TABLE `histoiredejoueur`
   ADD PRIMARY KEY (`Id`),
@@ -116,80 +197,86 @@ ALTER TABLE `histoiredejoueur`
   ADD KEY `UneHistoire` (`IdHistoire`);
 
 --
--- Index pour la table `joueur`
+-- Indexes for table `joueur`
 --
 ALTER TABLE `joueur`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `NomUtilisateur` (`NomUtilisateur`);
 
 --
--- Index pour la table `paragraphe`
+-- Indexes for table `paragraphe`
 --
 ALTER TABLE `paragraphe`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `MonHistoire` (`IdHistoire`);
 
 --
--- Index pour la table `reponse`
+-- Indexes for table `reponse`
 --
 ALTER TABLE `reponse`
   ADD PRIMARY KEY (`Id`),
-  ADD KEY `MonParagraphe` (`IdParagraphe`);
+  ADD KEY `MonParagraphe` (`IdParagrapheEntrant`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `histoire`
+-- AUTO_INCREMENT for table `capacite`
+--
+ALTER TABLE `capacite`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `histoire`
 --
 ALTER TABLE `histoire`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT pour la table `histoiredejoueur`
+-- AUTO_INCREMENT for table `histoiredejoueur`
 --
 ALTER TABLE `histoiredejoueur`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT pour la table `joueur`
+-- AUTO_INCREMENT for table `joueur`
 --
 ALTER TABLE `joueur`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `paragraphe`
+-- AUTO_INCREMENT for table `paragraphe`
 --
 ALTER TABLE `paragraphe`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT pour la table `reponse`
+-- AUTO_INCREMENT for table `reponse`
 --
 ALTER TABLE `reponse`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `histoiredejoueur`
+-- Constraints for table `histoiredejoueur`
 --
 ALTER TABLE `histoiredejoueur`
   ADD CONSTRAINT `UnJoueur` FOREIGN KEY (`IdJoueur`) REFERENCES `joueur` (`Id`),
   ADD CONSTRAINT `UneHistoire` FOREIGN KEY (`IdHistoire`) REFERENCES `histoire` (`Id`);
 
 --
--- Contraintes pour la table `paragraphe`
+-- Constraints for table `paragraphe`
 --
 ALTER TABLE `paragraphe`
   ADD CONSTRAINT `MonHistoire` FOREIGN KEY (`IdHistoire`) REFERENCES `histoire` (`Id`);
 
 --
--- Contraintes pour la table `reponse`
+-- Constraints for table `reponse`
 --
 ALTER TABLE `reponse`
-  ADD CONSTRAINT `MonParagraphe` FOREIGN KEY (`IdParagraphe`) REFERENCES `paragraphe` (`Id`);
+  ADD CONSTRAINT `MonParagraphe` FOREIGN KEY (`IdParagrapheEntrant`) REFERENCES `paragraphe` (`Id`);
 COMMIT;

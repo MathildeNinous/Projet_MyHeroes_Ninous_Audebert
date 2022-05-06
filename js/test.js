@@ -1,8 +1,8 @@
 function afficherHistoire(titre, description) {
-    $(".modal-title").text(titre);
-    $(".modal-body").text(description);
-    $(".submit").attr('href','paragraphe.php?titre='+titre);
-    $(".submit").attr('onclick',"redirection()");
+    $("#modalHistoire .modal-title").text(titre);
+    $("#modalHistoire .modal-body").text(description);
+    $("#modalHistoire.submit").attr('href','paragraphe.php?titre='+titre);
+    $("#modalHistoire.submit").attr('onclick',"redirection()");
 }
 
 function redirection(){

@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        <p><?php echo($ligne['Description']); ?></p>
+        <p><?=$ligne['Description']); ?></p>
         <p><a class="reponse" href="paragraphe.php?id=<?=$paragraphe['Id']?>&titre=<?=$ligne['Titre']?>">Jouer</a></p>
     </div>
 

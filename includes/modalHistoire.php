@@ -2,7 +2,6 @@
     include 'modalDelete.php';
 ?>
 
-
 <div class="modal" id="modalHistoire" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -14,7 +13,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalDelete">Supprimer</button>
+        <button type="button" class="btn btn-danger idHistoire" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalDelete" >Supprimer</button>
         <button type="button" class="submit btn btn-primary">Voir</button>
       </div>
     </div>

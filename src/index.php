@@ -11,7 +11,7 @@
                     $response = $bdd->query($maRequete);
                     while($ligne = $response->fetch()){
                 if (!empty($_SESSION['nomUtilisateur'])){?> 
-                <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistoire" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>');">
+                <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistoire" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description']?>','<?=$ligne['Id']?>');">
 
                     <?php } else {?>
                         

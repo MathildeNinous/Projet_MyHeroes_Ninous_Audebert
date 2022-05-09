@@ -12,7 +12,7 @@
     <body>
             <div class="well">
                 <h3 class="text-center">Créé une nouvelle histoire !</h3>
-                <form class="form-horizontal" height="100" role="form" action="creerHistoire.php" method="post">
+                <form class="form-horizontal" height="100" role="form" action="traitementCreationHistPartie1.php" method="post">
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                             <input type="text" name="titre" class="form-control" placeholder="Titre de l'histoire" required="" autofocus="">
@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Créer</button>
+                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Suivant</button>
                             <button type="reset" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
                         </div>
                     </div>

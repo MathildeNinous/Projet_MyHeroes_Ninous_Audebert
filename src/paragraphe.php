@@ -34,8 +34,8 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     $compte = $monCompte->fetch();
     if(!$compte || $compte['Mort'] != 0){
         //On crée la partie et récupère les informations de la partie
-        $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement) VALUES (?,?,?)");
-        $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe']]);
+        $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation) VALUES (?,?,?,?)");
+        $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time()]);
         $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
         $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
         $compte = $monCompte->fetch();

@@ -8,3 +8,15 @@ function afficherHistoire(titre, description) {
 function redirection(){
     window.location.replace($(".submit").attr('href'));
 }
+
+function RecapHistoire(id){
+    $(".recap"+id ).toggle();
+}
+
+function MesHistoires(id){
+    console.log(id);
+    $(".histoire"+id ).toggle();
+}
+
+$(".afficheHistoire").hide();
+$(".recap").hide();

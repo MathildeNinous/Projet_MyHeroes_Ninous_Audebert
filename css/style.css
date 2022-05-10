@@ -28,6 +28,10 @@ img {
     background-color: #212529;
 }
 
+.card{
+    margin-bottom:2%;
+}
+
 
 .description{
     margin : 3px;

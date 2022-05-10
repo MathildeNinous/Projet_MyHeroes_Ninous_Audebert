@@ -61,7 +61,7 @@
           <?= $_SESSION['nomUtilisateur']?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Mon Hero</a></li>
+            <li><a class="dropdown-item" href="../src/monHero.php">Mon Hero</a></li>
             <li><a class="dropdown-item" href="../authentification/deconnexion.php">Deconnexion</a></li>
           </ul>
           <?php } ?>

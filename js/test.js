@@ -8,4 +8,3 @@ function afficherHistoire(titre, description) {
 function redirection(){
     window.location.replace($(".submit").attr('href'));
 }
-

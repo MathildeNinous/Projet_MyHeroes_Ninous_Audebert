@@ -29,15 +29,15 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
         $histoire = $maRequete->fetch();
 
     //On regarde si le joeur à déjà commencé cette histoire
-    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ?");
-    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur']]);
+    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
+    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
     $compte = $monCompte->fetch();
-    if(!$compte){
+    if(!$compte || $compte['Mort'] != 0){
         //On crée la partie et récupère les informations de la partie
         $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement) VALUES (?,?,?)");
         $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe']]);
-        $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ?");
-        $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur']]);
+        $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
+        $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
         $compte = $monCompte->fetch();
         $idParagraphe = $histoire['PremierParagraphe'];
 
@@ -110,6 +110,8 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
                 <?php 
                 //On regarde si le paragraphe est le paragraphe de mort
                 if($idParagraphe == $histoire['ParagrapheMort']){
+                    $mort = $bdd->prepare("UPDATE histoireDeJoueur SET Mort = ? WHERE Id = ?");
+                    $mort->execute([1,$compte['Id']]);
                 ?> 
                     <p class="description" style = "background-color:#C70039; color:white;">Malheureusement tu es morts avant d'aller au bout de l'aventure</p>
                 <?php

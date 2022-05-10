@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <label for="nbParagraphes">Nombre de paragraphes : </label>
+                            <label>Nombre de paragraphes : </label>
                             <input type="text" size="3" name="nbParagraphes" id="nbParagraphes" required/>
                             <button type="button" class="btn btn-primary" id="validNbParagraphes" onclick="afficherParagraphe()">Ok</button>
                         </div>

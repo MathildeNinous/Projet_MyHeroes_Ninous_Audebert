@@ -9,6 +9,7 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
     $paragraphe = $_POST['paragraphe'];
     $capacite = $_POST['capacite'];
     $reponse = $_POST['reponse'];
+    $nbParagraphe = $_POST['nbParagraphes']-1;
 
     //creation de l'histoire avec titre/description
     $sql = "INSERT INTO histoire(Titre, Description, PremierParagraphe) VALUES (?,?,null)";
@@ -34,6 +35,15 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
         $sqlP1 = "UPDATE histoire SET PremierParagraphe=? WHERE Id = ?";
         $queryP1 = $bdd->prepare($sqlP1);
         $queryP1->execute([$idParagraphe['Id'], $idHistoireCree]);
+
+        //recupere l'id de tous les paragraphes que je viens de créer
+        $sqlIdP = "SELECT Id FROM paragraphe WHERE Description=?";
+        $queryIdP = $bdd->prepare($sqlIdP);
+        $queryIdP->execute([$paragraphe[$i]]);
+        $idParagraphes = $queryIdP->fetch();
+
+        
+        
     }    
 
 }
@@ -51,21 +61,26 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
     <body>
         <div class="well">
             <h2 class="text-center">Voici les paragraphes de l'histoire que tu t'apprètes à créer</h2>
-            <h3 class="text-center">Choisis pour chacun des paragraphe les réponses sortantes !</h3>
+            <h3 class="text-center">Pour CHACUN des paragraphes, choisissez les réponses sortantes !</h3>
                 <form class="form-horizontal" height="100" role="form" action="traitementCreationHistPartie2.php" method="post">    
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                             <?php
                             for($i=0; $i <count($paragraphe) ; $i++) { ?>
                                 <h3>Paragraphe <?=$i+1?></h3>
-                                <textarea readonly class="form-control" rows="3"><?=$paragraphe[$i]?></textarea>
-                                <select class="form-select" aria-label="Default select example">
-                                    <?php for($j=0; $j<count($reponse); $j++) { ?>
-                                        <option value="reponseSortante[]"><?=$reponse[$j]?></option>
-                                    <?php } ?>
-                                </select>
-                            <?php } ?>
-                            
+                                <textarea readonly class="form-control" rows="6" name="paragraphe" value="<?=$idParagraphes['Id']?>"><?=$paragraphe[$i]?></textarea>
+                                <input type="hidden" name="reponse" value="<?=$reponse[$i]?>">
+                                <br>
+                                <?php for($k=0; $k<$nbParagraphe; $k++) { ?>
+                                    <select name="reponseSortante[]" class="form-control" aria-label="Default select example">
+                                        <?php for($j=0; $j<count($reponse); $j++) { ?>    
+                                            <option value="<?=$reponse[$j]?>">
+                                                <?=$reponse[$j]?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <br>
+                                <?php } } ?>
                         </div>
                     </div>
                     

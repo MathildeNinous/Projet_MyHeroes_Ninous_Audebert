@@ -26,7 +26,7 @@ function afficherParagraphe() {
         //Affichage zone texte réponse pour tous les paragraphes sauf le premier
         if (i != 0) {
             const txt = document.createElement("p");
-            txt.textContent = "Entrez la réponse qui ménera à ce paragraphe";
+            txt.textContent = "Entrez la réponse qui mènera à ce paragraphe";
             divCol.appendChild(txt);
 
             const rep = document.createElement("input");
@@ -44,7 +44,9 @@ function afficherParagraphe() {
 
         const capacite = document.createElement("input");
         capacite.className= "form-control";
-        capacite.type = "text";
+        capacite.type = "number";
+        capacite.min="1";
+        capacite.max="4";
         capacite.placeholder = "1,2,3 ou 4";
         capacite.name = "capacite[]";
         divCol.appendChild(capacite);

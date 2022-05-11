@@ -19,3 +19,36 @@ for($j=0; $j<count($paragraphe); $j++) {
         }
     }
 }
+
+?>
+
+<style>
+    body{ background-image: url("../images/bibli.jpg");
+          color:black;
+          font-size: 1.3em;
+        }
+    div {
+        display: flex;
+        margin-right:auto;
+        margin-left: auto;
+        margin-top: 5em;;
+        justify-content: center;
+        width: 40%;
+        flex-direction: column;
+        background-color: #f7f1e9;
+        padding:0.3em;
+        border-radius: 20%;
+        text-align: center;
+    }
+</style>
+
+<div>
+    <h1>HISTOIRE CRÉÉE !</h1>
+    <p>
+        Vous avez créée votre histoire avec succès, félicitations.<br>
+        Reviens vite sur la page d'accueil en cliquant juste ici ↓
+    </p>
+    <a class="btn btn-info" href="index.php">Retour à l'accueil</a>
+</div>
+
+

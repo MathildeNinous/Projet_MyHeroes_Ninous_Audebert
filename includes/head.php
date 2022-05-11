@@ -16,19 +16,6 @@
         <title>BeHero </title>
     </head>
     <headear>
-        <!-- navbar-fixed-top row pour fixer la navbar-->
-        <nav class="navbar navbar-expand-lg">
-            <h2 class="col-sm-4">BeHero</h2>
-            <a class="col-sm-2" href="../src/index.php">Accueil</a>
-            <a class="col-sm-2">Héro</a>
-            <?php if (empty($_SESSION['nomUtilisateur'])){?> 
-                <p class="col-sm-2" ><a href="../authentification/connexion.php">Connexion</a><a href="../authentification/inscription.php">/Inscription</a></p> 
-            <?php } else { ?>
-                <p class="col-sm-2" ><a href="../authentification/deconnexion.php">Deconnexion</a>
-                <p class="col-sm-3"><?php echo $_SESSION['nomUtilisateur']?><img class="connexion" src="../img/connexion.png" alt="Connexion"></p>
-                
-            <?php } ?>
-        </nav>-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark align">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">BeHero</a>

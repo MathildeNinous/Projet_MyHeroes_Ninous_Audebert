@@ -29,24 +29,29 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
         $sqlIdP1 = "SELECT * FROM paragraphe WHERE Description=?";
         $queryIdP1 = $bdd->prepare($sqlIdP1);
         $queryIdP1->execute([$paragraphe[0]]);
-        $idParagraphe = $queryIdP1->fetch();
+        $idPremierParagraphe = $queryIdP1->fetch();
 
         //premier paragraphe
         $sqlP1 = "UPDATE histoire SET PremierParagraphe=? WHERE Id = ?";
         $queryP1 = $bdd->prepare($sqlP1);
-        $queryP1->execute([$idParagraphe['Id'], $idHistoireCree]);
+        $queryP1->execute([$idPremierParagraphe['Id'], $idHistoireCree]);
 
-        //recupere l'id de tous les paragraphes que je viens de créer
-        $sqlIdP = "SELECT Id FROM paragraphe WHERE Description=?";
-        $queryIdP = $bdd->prepare($sqlIdP);
-        $queryIdP->execute([$paragraphe[$i]]);
-        $idParagraphes = $queryIdP->fetch();
+        if ($i != 0) {
+            //recuper l'id des paragraphe
+            $sqlIdP1 = "SELECT * FROM paragraphe WHERE Description=?";
+            $queryIdP1 = $bdd->prepare($sqlIdP1);
+            $queryIdP1->execute([$paragraphe[$i]]);
+            $idParagraphe = $queryIdP1->fetch();
 
-        
+            //on insert les réponses
+            $sql3 = "INSERT INTO reponse(Description, IdParagrapheEntrant, IdParagrapheSortant) VALUES (?,?,?)";
+            $query3 = $bdd->prepare($sql3);
+            $query3->execute([$reponse[$i-1], null, $idParagraphe['Id']]);
+            }
         
     }    
 
-}
+
 
 ?>
 
@@ -66,12 +71,19 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                             <?php
-                            for($i=0; $i <count($paragraphe) ; $i++) { ?>
+                            for($i=0; $i <count($paragraphe) ; $i++) { 
+                                //recupere l'id de tous les paragraphes que je viens de créer
+                                $sqlIdP = "SELECT Id FROM paragraphe WHERE Description=?";
+                                $queryIdP = $bdd->prepare($sqlIdP);
+                                $queryIdP->execute([$paragraphe[$i]]);
+                                $idParagraphes = $queryIdP->fetch();
+                                ?>
+
                                 <h3>Paragraphe <?=$i+1?></h3>
-                                <textarea readonly class="form-control" rows="6" name="paragraphe" value="<?=$idParagraphes['Id']?>"><?=$paragraphe[$i]?></textarea>
-                                <input type="hidden" name="reponse" value="<?=$reponse[$i]?>">
+                                <textarea readonly class="form-control" rows="6" ><?=$paragraphe[$i]?></textarea>
+                                <input type="hidden" name="idParagraphe[]" value="<?=$idParagraphes['Id']?>">
                                 <br>
-                                <?php for($k=0; $k<$nbParagraphe; $k++) { ?>
+                                <?php for($k=0; $k<$nbParagraphe+1; $k++) { ?>
                                     <select name="reponseSortante[]" class="form-control" aria-label="Default select example">
                                         <?php for($j=0; $j<count($reponse); $j++) { ?>    
                                             <option value="<?=$reponse[$j]?>">
@@ -97,3 +109,7 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
     </body>
 </html>
 
+<?php
+}
+
+?>

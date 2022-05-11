@@ -1,20 +1,21 @@
 <?php
     include("../includes/connectBDD.php");
 
-//TRAITEMENT DONNEES DEUXIEME PARTIE DU FORMULAIRE
-$reponseSortante = $_POST['reponseSortante'];
+    $reponseSortante = $_POST['reponseSortante'];
+    $paragraphe= $_POST['idParagraphe'];
 
-
-
-for($j=0; $j<count($reponseSortante); $j++) {
-    ?>
-    <h1><?=$reponseSortante[$j]?></h1>
-    <?php
-
-    if (!empty($reponseSortante[$j])) {
-    //on insert les réponses
-    $sql3 = "INSERT INTO reponse(Description, IdParagrapheEntrant, IdParagrapheSortant) VALUES (?,?,?)";
-    $query3 = $bdd->prepare($sql3);
-    $query3->execute([$_POST['reponse'], $reponseSortante[$j], $_POST['paragraphe']]);
+for($j=0; $j<count($paragraphe); $j++) {
+    for($i=$j*2; $i<=($j*2+count($paragraphe)-1); $i++){
+        $reponseRequete = $bdd->prepare("SELECT * from reponse where description = ?");
+        $reponseRequete->execute([$reponseSortante[$i]]);
+        $reponse = $reponseRequete->fetch();
+        
+        if($reponse['IdParagrapheEntrant'] == null){
+            $ajouterParagrapheEntrant = $bdd->prepare("UPDATE reponse SET IdParagrapheEntrant = ? WHERE Id = ?");
+            $ajouterParagrapheEntrant->execute([$paragraphe[$j], $reponse['Id']]);
+        }else{
+            $ajouterParagrapheEntrant = $bdd->prepare("INSERT INTO reponse  (Description, IdParagrapheEntrant, IdParagrapheSortant) values (?,?,?)");
+            $ajouterParagrapheEntrant->execute([ $reponseSortante[$i], $paragraphe[$j], $reponse['IdParagrapheSortant'] ]);
+        }
     }
 }

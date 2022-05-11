@@ -8,13 +8,19 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['nomUtilisat
     $nomUtilisateur = $_POST['nomUtilisateur'];
     $mdp = $_POST['mdp'];
     $email = $_POST['email'];
+    if($email == "admin@behero.fr"){
+      $droit = 1;
+      $_SESSION['Droit'] = 'admin';
+    }else{
+      $droit = 0;
+    }
     
-    $sql = "INSERT INTO joueur(Nom, Prénom, NomUtilisateur, Mdp, Email) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO joueur(Nom, Prénom, NomUtilisateur, Mdp, Email, Droit) VALUES (?,?,?,?,?,?)";
     $query = $bdd->prepare($sql);
     
 
     // vérifier si la requête d'insertion a réussi
-    if($query->execute([$nom, $prenom, $nomUtilisateur, $mdp, $email])) {
+    if($query->execute([$nom, $prenom, $nomUtilisateur, $mdp, $email, $droit])) {
       echo 'Bienvenue ' .  $nomUtilisateur . ', votre inscription est validée';
 
       $_SESSION['nomUtilisateur'] = $nomUtilisateur;

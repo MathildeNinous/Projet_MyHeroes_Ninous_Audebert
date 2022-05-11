@@ -9,10 +9,10 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     $histoire = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
     $histoire->execute([$histoireDeJoueur]);
     while($histoireFinale = $histoire->fetch()){
-        $paragraphe= $bdd->prepare("SELECT description FROM paragraphe WHERE Id = ?");
+        $paragraphe= $bdd->prepare("SELECT Description FROM paragraphe WHERE Id = ?");
         $paragraphe->execute([$histoireFinale['Paragraphe']]);
         $descriptionParagraphe = $paragraphe->fetch(); ?>
-        <div class="description"><p><?=nl2br($descriptionParagraphe[0]) ?></p>
+        <div class="description"><p><?=nl2br($descriptionParagraphe['Description']) ?></p>
         <?php 
          $choix= $bdd->prepare("SELECT Description from reponse WHERE IdParagrapheEntrant = ?");
          $choix->execute([$histoireFinale['Paragraphe']]);
@@ -26,13 +26,13 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     //on récupère les informations de l'histoire choisie
     $maRequete = $bdd->prepare("SELECT * FROM histoire  WHERE Titre=?");
     $maRequete->execute([$_GET['titre']]);
-        $histoire = $maRequete->fetch();
+    $histoire = $maRequete->fetch();
 
     //On regarde si le joeur à déjà commencé cette histoire
     $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
     $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
     $compte = $monCompte->fetch();
-    if(!$compte || $compte['Mort'] != 0){
+    if(!$compte || $compte['Mort'] != 0 || $compte['Finie'] != 0){
         //On crée la partie et récupère les informations de la partie
         $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation) VALUES (?,?,?,?)");
         $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time()]);
@@ -54,14 +54,14 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
             $idParagraphe = $_GET['id'];
 
             //On récupère le nombre de paragraphe qu'on à déjà joué
-            $avancement = $bdd->prepare("SELECT Paragraphe from avancement WHERE Ordre = (SELECT MAX(Ordre) FROM avancement WHERE HistoireDeJoueur = ?)");
+            $avancement = $bdd->prepare("SELECT Paragraphe,Ordre from avancement WHERE Ordre = (SELECT MAX(Ordre) FROM avancement WHERE HistoireDeJoueur = ?)");
             $avancement->execute([$compte['Id']]);
             $ordre = $avancement->fetch();
 
             //On enregistre l'avencement du joueur
             if($ordre['Paragraphe'] != $_GET['id']){
             $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
-            $monAvancement->execute([$compte['Id'],$ordre[0]+=1,$idParagraphe]);}
+            $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);}
         }
     }
 
@@ -69,7 +69,7 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     //On vérifie que le hero n'est pas mort
     if($compte['Deshydratation']+$compte['Fatigue'] <= -10 && $idParagraphe != $histoire['ParagrapheMort']){
     header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);
-}   
+    }
     //On cherche le paragraphe    
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
     //on récupère la capacité du paragraphe
@@ -119,7 +119,10 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
                 affichageHistoireFinie($bdd,$compte['Id'],$histoire['Description']);
                 }else{
                     //On regarde si le paragraphe est un paragraphe de fin
-                 if($mesChoix->rowCount() == 0){ ?>
+                 if($mesChoix->rowCount() == 0){ 
+                     $finie = $bdd->prepare("UPDATE histoiredejoueur set Finie = ? WHERE Id = ?");
+                     $finie->execute([1,$compte['Id']]);
+                     ?>
                     <div class = "infoClick" style="width : 100%">
                     <p>Félicitation vous êtes allé au bout de cette histoire !</p>
                     <?php affichageHistoireFinie($bdd,$compte['Id'],$histoire['Description']); ?> 

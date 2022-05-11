@@ -17,6 +17,9 @@ if (!empty($_POST['nomUtilisateur']) and !empty($_POST['mdp'])) {
             if ($ligne["NomUtilisateur"]==$nomUtilisateur && $ligne["Mdp"]==$mdp) {
                 $_SESSION['nomUtilisateur'] = $nomUtilisateur;
                 $_SESSION['idUtilisateur'] = $ligne['Id'];
+                if($ligne['Droit'] == 1){
+                    $_SESSION['Droit'] = 'admin';
+                }
                 echo("t'es connecté bg".$_SESSION['idUtilisateur']);
                 header('Location: ../src/index.php');
             }

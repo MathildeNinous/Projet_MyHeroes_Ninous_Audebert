@@ -27,9 +27,11 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="../src/index.php">Accueil</a>
         </li>
+        <?php if(isset($_SESSION['Droit'])){ ?>
         <li class="nav-item">
-          <a class="nav-link" href="../src/index.php">Statistique</a>
+          <a class="nav-link" href="../src/statistiques.php">Statistique</a>
         </li>
+        <?php } ?>
       </ul>
     </div>
     

@@ -31,6 +31,12 @@ img {
 
 .card{
     margin-bottom:2%;
+    text-align: center;
+}
+
+.card p {
+    background-color: #A2D9CE;
+    margin: 0;
 }
 
 

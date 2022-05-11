@@ -8,6 +8,13 @@
         $requeteHide->execute([1,$idHistoire]);
     }
 
+    if(isset($_POST['visible']))
+    {
+        $idHistoire = $_POST['idHistoireARendreVisible'];
+        $requeteHide =$bdd->prepare("UPDATE Histoire SET Cacher=? WHERE Id = ?");
+        $requeteHide->execute([0,$idHistoire]);
+    }
+
     if(isset($_POST['delete']))
     {
         $idHistoire = $_POST['idHistoire'];

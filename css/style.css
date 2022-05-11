@@ -30,6 +30,11 @@ img {
 
 .card{
     margin-bottom:2%;
+    text-align: center;
+}
+
+.list-group-item .card{
+    background-color: #A2D9CE	;
 }
 
 

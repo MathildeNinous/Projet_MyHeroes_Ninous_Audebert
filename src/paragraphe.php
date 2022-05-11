@@ -26,7 +26,7 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     //on récupère les informations de l'histoire choisie
     $maRequete = $bdd->prepare("SELECT * FROM histoire  WHERE Titre=?");
     $maRequete->execute([$_GET['titre']]);
-        $histoire = $maRequete->fetch();
+    if($histoire = $maRequete->fetch()){
 
     //On regarde si le joeur à déjà commencé cette histoire
     $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
@@ -74,7 +74,7 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
     //on récupère la capacité du paragraphe
     $mesParagraphes->execute([$idParagraphe]);
-    $paragraphe = $mesParagraphes->fetch();
+    if($paragraphe = $mesParagraphes->fetch()){
 
     $capacites = $bdd->prepare("SELECT * FROM capacite  WHERE Id = ?");
     $capacites->execute([$paragraphe['Capacite']]);
@@ -145,5 +145,14 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
                 <p class="card-text"><?=$point[$nom]?></p>
             </div>
             </div>
-            <?php } ?>
+            <?php } 
+        }else{
+            header('Location: index.php');
+            ?>
+
+                <?php }}else{
+            header('Location: index.php');
+            ?>
+
+                <?php } ?>
 </body>

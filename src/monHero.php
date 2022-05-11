@@ -16,14 +16,16 @@
         <div class="container ">
             <div class="row justify-content-center ">
                 <div class="card col-sm-2" style="width: 50%;">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush ">
                         <li class="list-group-item"><?=$histoire['Titre']?></li>
                         <li class="list-group-item"><?=$histoire['Description']?></li>
                         <li class="list-group-item row">
-                            <ul class="row">
-                                <li class="card col-sm-4"><p>Nombre de partie jouée <?=$mesHistoires['nbPartie']?></p></li>
-                                <li class="card col-sm-4"><p>Nombre de mort <?=$morts['mort']?></p></li>
-                                <li class="col-sm-4"><button class="btn btn-primary" onclick="MesHistoires(<?=$histoire['Id']?>)">Détail</button></li>
+                            <ul class="col-sm-12">
+                                <li class="card "><p>Nombre de partie jouée </p></li>
+                                <li class="card "><p><?=$mesHistoires['nbPartie']?></p></li>
+                                <li class="card "><p>Nombre de mort</p></li>
+                                <li class="card "><p><?=$morts['mort']?></p></li>
+                                <button class="btn btn-primary" onclick="MesHistoires(<?=$histoire['Id']?>)">Détail</button>
                             </ul>
                         </li>    
                         <?php $partie = $bdd->prepare("SELECT * from histoireDeJoueur WHERE IdJoueur = ? AND IdHistoire = ? ORDER BY Creation ");

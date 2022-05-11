@@ -16,9 +16,9 @@
         <title>BeHero </title>
     </head>
     <headear>
-        <!--
-        <nav class="navbar navbar-expand-lg navbar-fixed-top row">
-            <h2 class="col-sm-3">BeHero</h2>
+        <!-- navbar-fixed-top row pour fixer la navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <h2 class="col-sm-4">BeHero</h2>
             <a class="col-sm-2" href="../src/index.php">Accueil</a>
             <a class="col-sm-2">Héro</a>
             <?php if (empty($_SESSION['nomUtilisateur'])){?> 

@@ -107,9 +107,9 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                     </div>
                     
                     <div class="form-group">
-                        <div class="w-100">
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Terminer</button>
-                            <button type="reset" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
+                        <div class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-default btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Terminer</button>
+                            <button type="reset" class="btn btn-default btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
                         </div>
                     </div>
                 </form>

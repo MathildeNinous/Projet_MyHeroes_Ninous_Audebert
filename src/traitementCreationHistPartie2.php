@@ -37,6 +37,7 @@ for($j=0; $j<count($paragraphe); $j++) {
           color:black;
           font-size: 1.3em;
           background-color:#A9A9A9;
+          font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
     div {
         display: flex;
@@ -48,7 +49,7 @@ for($j=0; $j<count($paragraphe); $j++) {
         flex-direction: column;
         background-color: #A2D9CE;
         padding:0.3em;
-        border-radius: 20%;
+        border-radius: 15%;
         text-align: center;
     }
     a {

@@ -35,20 +35,35 @@ for($j=0; $j<count($paragraphe); $j++) {
         justify-content: center;
         width: 40%;
         flex-direction: column;
-        background-color: #f7f1e9;
+        background-color: 	#F5DEB3;
         padding:0.3em;
         border-radius: 20%;
         text-align: center;
     }
+    a {
+        text-decoration: none;
+        color: black;
+        padding: 0.2em;
+        border-radius: 40%;
+        border : solid 2px blue;
+        width: 40%;
+        margin-right:auto;
+        margin-left: auto;
+        margin-bottom: 1.2em;
+        background-color: #DEB887;
+        border : solid 3px #DEB887
+    }
 </style>
 
 <div>
-    <h1>HISTOIRE CRÉÉE !</h1>
+    <h2>HISTOIRE CRÉÉE !</h2>
     <p>
         Vous avez créée votre histoire avec succès, félicitations.<br>
-        Reviens vite sur la page d'accueil en cliquant juste ici ↓
+        Reviens vite sur la page d'accueil en cliquant juste ici <br>↓
     </p>
     <a class="btn btn-info" href="index.php">Retour à l'accueil</a>
 </div>
 
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
 

@@ -1,7 +1,6 @@
 <?php 
     require_once '../includes/head.php';
     include '../includes/modalHistoire.php';
-    include '../includes/modalErrors.php';
     ?>
 <body style="background-color:#A9A9A9">
     <div class="container">

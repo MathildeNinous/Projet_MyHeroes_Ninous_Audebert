@@ -71,12 +71,13 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
     </head>
 
     <body style="background-color:#A9A9A9">
-        <div class="well">
-            <h2 class="text-center">Voici les paragraphes de l'histoire que tu t'apprètes à créer</h2>
-            <h3 class="text-center">Pour CHACUN des paragraphes, choisissez les réponses sortantes !</h3>
-                <form class="form-horizontal" height="100" role="form" action="traitementCreationHistPartie2.php" method="post">    
+        <div class="container w-50">
+            <h3 class="text-center mt-5">Voici les paragraphes de l'histoire que tu t'apprètes à créer</h3>
+            <p class="text-center"><i>Pour chacun des paragraphes, choisissez les réponses sortantes !</i></p>
+                <hr>
+                <form class="form-horizontal w-100" height="100" role="form" action="traitementCreationHistPartie2.php" method="post">    
                     <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                        <div class="w-100">
                             <?php
                             for($i=0; $i <count($paragraphe) ; $i++) { 
                                 //recupere l'id de tous les paragraphes que je viens de créer
@@ -106,7 +107,7 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                     </div>
                     
                     <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                        <div class="w-100">
                             <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Terminer</button>
                             <button type="reset" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
                         </div>

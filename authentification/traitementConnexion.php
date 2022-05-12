@@ -19,6 +19,10 @@ if (!empty($_POST['nomUtilisateur']) and !empty($_POST['mdp'])) {
                 if($verify){
                     $_SESSION['nomUtilisateur'] = $nomUtilisateur;
                     $_SESSION['idUtilisateur'] = $ligne['Id'];
+                    if($ligne['Droit']==1){
+                        $droit = 1;
+                        $_SESSION['Droit'] = 'admin';
+                    }
                     header('Location:../src/index.php');
                 }
                 else{

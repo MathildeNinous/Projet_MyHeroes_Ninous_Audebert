@@ -58,12 +58,8 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
             $sql3 = "INSERT INTO reponse(Description, IdParagrapheEntrant, IdParagrapheSortant) VALUES (?,?,?)";
             $query3 = $bdd->prepare($sql3);
             $query3->execute([$reponse[$i-1], null, $idParagraphe['Id']]);
-            }
-        
+        }
     }    
-
-
-
 ?>
 
 <!-- DEUXIEME PARTIE DU FORMULAIRE -->
@@ -74,7 +70,7 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
         <title>Création d'une histoire</title>
     </head>
 
-    <body>
+    <body style="background-color:#A9A9A9">
         <div class="well">
             <h2 class="text-center">Voici les paragraphes de l'histoire que tu t'apprètes à créer</h2>
             <h3 class="text-center">Pour CHACUN des paragraphes, choisissez les réponses sortantes !</h3>

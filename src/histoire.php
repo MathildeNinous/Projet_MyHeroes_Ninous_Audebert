@@ -12,9 +12,9 @@
         $paragraphe = $mesParagraphes->fetch();
 ?>
 
-<body>
+<body style="background-color:#A9A9A9">
     <div class="container">
-        <p><?=$ligne['Description']); ?></p>
+        <p><?=$ligne['Description']; ?></p>
         <p><a class="reponse" href="paragraphe.php?id=<?=$paragraphe['Id']?>&titre=<?=$ligne['Titre']?>">Jouer</a></p>
     </div>
 

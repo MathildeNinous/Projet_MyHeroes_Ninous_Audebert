@@ -12,18 +12,18 @@
     $toutesLesMorts->execute([1]);
     $nbMort=$toutesLesMorts->fetch();
     ?> 
-
-    <div class="container ">
+<body style="background-color:#A9A9A9">
+    <div class="container">
             <div class="row justify-content-center ">
-                <div class="card col-sm-2" style="width: 50%;">
-                    <ul class="list-group list-group-flush ">
-                        <li class="list-group-item">Statistiques Globales</li>
+                <div class="card col-sm-2 mt-4" style="width: 50%;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item display-6"><b>STATISTIQUES GLOBALES</b></li>
                         <li class="list-group-item row">
                             <ul class="col-sm-12">
-                                <li class="card "><p>Nombre de partie jouée </p></li>
-                                <li class="card "><p><?=$lesHistoires['nbPartie']?></p></li>
-                                <li class="card "><p>Nombre de mort</p></li>
-                                <li class="card "><p><?=$nbMort['nbMort']?></p></li>
+                                <li class="card rounded"><p>↓ Nombre de parties jouées ↓</p></li>
+                                <li class="card rounded"><p><?=$lesHistoires['nbPartie']?></p></li>
+                                <li class="card rounded"><p>↓ Nombre de morts ↓</p></li>
+                                <li class="card rounded"><p><?=$nbMort['nbMort']?></p></li>
                             </ul>
                         </li>
                     </ul>
@@ -43,27 +43,29 @@
         $mort->execute([$mesHistoires['Id'],1]);
         $morts= $mort->fetch();
         ?>
-        <div class="container ">
+        <div class="container">
             <div class="row justify-content-center ">
-                <div class="card col-sm-2" style="width: 50%;">
-                    <ul class="list-group list-group-flush ">
-                        <li class="list-group-item"><?=$mesHistoires['Titre']?></li>
-                        <li class="list-group-item"><?=$mesHistoires['Description']?></li>
-                        <li class="list-group-item row">
-                            <button type="button" class="btn btn-light voirStatistique" onclick="statistique()">Statistiques</button>
-                            <ul class="col-sm-12 statistique">
-                                <li class="card "><p>Nombre de partie jouée </p></li>
-                                <li class="card "><p><?php if(isset($histoiredeJoueur['nbPartie'])){echo $histoiredeJoueur['nbPartie'];}else{echo 0;}?></p></li>
-                                <li class="card "><p>Nombre de mort</p></li>
-                                <li class="card "><p><?=$morts['mort']?></p></li>
-                            </ul>    
+                <div class="card col-sm-2 pt-2" style="width: 50%; background-color: #A2D9CE;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="background-color:#DCDCDC;"><b><?=$mesHistoires['Titre']?></b></li>
+                        <li class="list-group-item" style="background-color:#DCDCDC;"><i><?=$mesHistoires['Description']?></i></li>
+                        <li class="list-group-item row" style="background-color: #A2D9CE">
+                            <button type="button" class="btn voirStatistique" style="background-color:#77B5FE;" onclick="statistique()">Statistiques</button>
+                            <ul class="col-sm-12 statistique pt-2 pb-2" style="background-color:#77B5FE;">
+                                <li class="card rounded" style="background-color:#77B5FE;"><p>Nombre de parties jouées </p></li>
+                                <li class="card rounded"><p><?php if(isset($histoiredeJoueur['nbPartie'])){echo $histoiredeJoueur['nbPartie'];}else{echo 0;}?></p></li>
+                                <li class="card rounded"><p>Nombre de morts</p></li>
+                                <li class="card rounded"><p><?=$morts['mort']?></p></li>
+                            </ul> 
+                            </li>   
                             <?php if($mesHistoires['Cacher'] == 0){?>
-                                <button type="button" class="btn btn-light idHistoireCacher" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalHide" onclick="suppression(<?=$mesHistoires['Id']?>)">Cacher</button>
+                                <li class="list-group-item" style="background-color: #A2D9CE">
+                                <button type="button" class="btn idHistoireCacher" style="background-color:#DCDCDC;" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalHide" onclick="suppression(<?=$mesHistoires['Id']?>)">Cacher</button>
                                 <?php }else{ ?>
                                     <button type="button" class="btn btn-light idHistoireCacher" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalVisible" onclick="suppression(<?=$mesHistoires['Id']?>)">Visible</button>
                                     <?php } ?>
                                 <button type="button" class="btn btn-danger idHistoire" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalDelete" onclick="suppression(<?=$mesHistoires['Id']?>)">Supprimer</button>
-                            </li>
+                                </li>
                     </ul>
                 </div>
             </div>
@@ -72,5 +74,6 @@
     }
 
 ?>
+</body>
 
 <script src="../js/test.js"></script>

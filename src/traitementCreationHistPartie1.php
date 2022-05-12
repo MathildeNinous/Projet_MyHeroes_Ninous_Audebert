@@ -47,12 +47,8 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
             $sql3 = "INSERT INTO reponse(Description, IdParagrapheEntrant, IdParagrapheSortant) VALUES (?,?,?)";
             $query3 = $bdd->prepare($sql3);
             $query3->execute([$reponse[$i-1], null, $idParagraphe['Id']]);
-            }
-        
+        }
     }    
-
-
-
 ?>
 
 <!-- DEUXIEME PARTIE DU FORMULAIRE -->

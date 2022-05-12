@@ -8,20 +8,26 @@ if (!empty($_POST['nomUtilisateur']) and !empty($_POST['mdp'])) {
     $mdp = $_POST['mdp'];
 
     if($bdd) {
-        $sql='SELECT * FROM joueur WHERE NomUtilisateur=? AND Mdp=?';
+        $sql='SELECT * FROM joueur WHERE NomUtilisateur=?';
         $reponse=$bdd->prepare($sql);
-        $reponse->execute([$nomUtilisateur, $mdp]);
+        $reponse->execute([$nomUtilisateur]);
 
         if ($ligne=$reponse->fetch()){
              // Authentication succes
-            if ($ligne["NomUtilisateur"]==$nomUtilisateur && $ligne["Mdp"]==$mdp) {
-                $_SESSION['nomUtilisateur'] = $nomUtilisateur;
-                $_SESSION['idUtilisateur'] = $ligne['Id'];
-                if($ligne['Droit'] == 1){
-                    $_SESSION['Droit'] = 'admin';
+            if ($ligne["NomUtilisateur"]==$nomUtilisateur) {
+                $verify = password_verify($mdp,$ligne['Mdp']);
+                if($verify){
+                    $_SESSION['nomUtilisateur'] = $nomUtilisateur;
+                    $_SESSION['idUtilisateur'] = $ligne['Id'];
+                    if($ligne['Droit']==1){
+                        $droit = 1;
+                        $_SESSION['Droit'] = 'admin';
+                    }
+                    header('Location:../src/index.php');
                 }
-                echo("t'es connecté bg".$_SESSION['idUtilisateur']);
-                header('Location: ../src/index.php');
+                else{
+                    echo "Mot de passe incorrect";
+                }
             }
         }else {
             echo "Utilisateur non reconnu";

@@ -18,8 +18,9 @@
                             <input type="text" name="titre" class="form-control" placeholder="Titre de l'histoire" required="" autofocus="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                    </div>
+                    <div class="form-group m-2">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 w-100">
                             <textarea class="form-control" name="description" rows="3" placeholder="Description de l'histoire" required="" autofocus=""></textarea>    
                         </div>
                     </div>
@@ -36,18 +37,16 @@
                         </div>
                     </div>
                     
-                    <div id='paragraphesContainer'></div>
+                    <div id='paragraphesContainer' class="m-2 w-100"></div>
 
-                    <div class="form-group">
-                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Suivant</button>
-                            <button type="reset" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
+                    <div class="form-group m-2">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-default btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Suivant</button>
+                            <button type="reset" class="btn btn-default btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Annuler</button>
                         </div>
                     </div>
                 </form>
             </div>
-        
-
         <script src="../js/creationHistoire.js"></script>
     </body>
 </html>

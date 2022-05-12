@@ -32,9 +32,11 @@ for($j=0; $j<count($paragraphe); $j++) {
 ?>
 
 <style>
-    body{ background-image: url("../images/bibli.jpg");
+    body{ background-image: url("../images/livres.jpg");
+        background-size: 100% auto;
           color:black;
           font-size: 1.3em;
+          background-color:#A9A9A9;
         }
     div {
         display: flex;
@@ -44,7 +46,7 @@ for($j=0; $j<count($paragraphe); $j++) {
         justify-content: center;
         width: 40%;
         flex-direction: column;
-        background-color: 	#F5DEB3;
+        background-color: #A2D9CE;
         padding:0.3em;
         border-radius: 20%;
         text-align: center;
@@ -64,7 +66,8 @@ for($j=0; $j<count($paragraphe); $j++) {
     }
 </style>
 
-<div>
+<body>
+    <div>
     <h2>HISTOIRE CRÉÉE !</h2>
     <p>
         Vous avez créée votre histoire avec succès, félicitations.<br>
@@ -72,6 +75,8 @@ for($j=0; $j<count($paragraphe); $j++) {
     </p>
     <a class="btn btn-info" href="index.php">Retour à l'accueil</a>
 </div>
+
+</body>
 
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/js/bootstrap.min.js"></script>

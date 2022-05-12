@@ -17,15 +17,16 @@ include 'modalInscription.php';?>
           <div class="mb-3">
               <input type="password" name="mdp" class="form-control" placeholder="Entrez votre mot de passe" required="">
           </div>
-          <div class="mb-3">
-              <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
+          <div class="mb-3 d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Se connecter </button>
+              <button type="reset" class="btn btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> Tout effacer </button>
           </div>
                   
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="submit btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalInscription">Je n'ai pas encore de compte</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="submit btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalInscription">Je n'ai pas encore de compte</button>
       </div>
     </div>
   </div>

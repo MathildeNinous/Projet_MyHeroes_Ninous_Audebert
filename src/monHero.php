@@ -13,14 +13,14 @@
         $mort->execute([$histoire['Id'], $_SESSION['idUtilisateur']]);
         $morts= $mort->fetch();
 ?>
-    <body>
+    <body style="background-color:#A9A9A9">
 
-        <div class="container " style="background-color:#A9A9A9">
-            <div class="row justify-content-center ">
-                <div class="card col-sm-2" style="width: 50%;">
+        <div class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="card col-sm-2" style="width:50%;">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><?=$histoire['Titre']?></li>
-                        <li class="list-group-item"><?=$histoire['Description']?></li>
+                        <li class="list-group-item"><b><?=$histoire['Titre']?></b></li>
+                        <li class="list-group-item"><i><?=$histoire['Description']?></i></li>
                         <li class="list-group-item row">
                             <ul class="row">
                                 <li class="card col-sm-4"><p>Nombre de partie jouée <?=$mesHistoires['nbPartie']?></p></li>

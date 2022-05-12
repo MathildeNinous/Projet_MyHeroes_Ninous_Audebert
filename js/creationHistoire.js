@@ -4,7 +4,7 @@ function afficherParagraphe() {
 
     for (let i = 0; i < nbParagraphes; i++) {
         const divFormGroup = document.createElement("div");
-        divFormGroup.className = "form-group";
+        divFormGroup.className = "form-group m-2";
 
         const divCol = document.createElement("div");
         divCol.className = "col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4";
@@ -13,7 +13,7 @@ function afficherParagraphe() {
         //Affichage paragraphe
         const titre = document.createElement("h4");
         titre.textContent = "Paragraphe " + (i+1);
-        titre.style.color = "#8157E2";
+        titre.style.fontWeight="bold";
         divCol.appendChild(titre);
 
         const area = document.createElement("textarea");

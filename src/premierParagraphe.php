@@ -27,7 +27,7 @@
         $paragraphe = $mesParagraphes->fetch();
 ?>
 
-<body>
+<body style="background-color:#A9A9A9">
     <div class="titre">
         <p class="cercle"></p>
        <svg xmlns="http://www.w3.org/2000/svg" width="40%" height="40%" fill="#044879" class="bi bi-book-half" viewBox="0 0 16 16">

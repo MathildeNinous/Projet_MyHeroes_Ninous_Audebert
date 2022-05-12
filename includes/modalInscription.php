@@ -33,10 +33,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> S'inscire</button>
-
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">annuler</button>                        </div>
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-default btn-primary m-1"><span class="glyphicon glyphicon-log-in"></span> S'inscrire </button>
+                            <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal"> Annuler </button>
+                        </div>
                     </div>
                 </form>
 </div>

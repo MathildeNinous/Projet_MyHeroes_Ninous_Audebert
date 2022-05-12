@@ -12,8 +12,10 @@
         $mort = $bdd->prepare("SELECT COUNT(Mort) as mort FROM histoireDeJoueur WHERE IdHistoire = ? AND IdJoueur = ? AND Mort = 1");
         $mort->execute([$histoire['Id'], $_SESSION['idUtilisateur']]);
         $morts= $mort->fetch();
-        ?>
-        <div class="container ">
+?>
+    <body>
+
+        <div class="container " style="background-color:#A9A9A9">
             <div class="row justify-content-center ">
                 <div class="card col-sm-2" style="width: 50%;">
                     <ul class="list-group list-group-flush">
@@ -46,5 +48,7 @@
     }
 
 ?>
+
+</body>
 
 <script src="../js/test.js"></script>

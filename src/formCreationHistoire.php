@@ -9,7 +9,7 @@
         <title>Création d'une histoire</title>
     </head>
 
-    <body>
+    <body style="background-color:#A9A9A9">
         <div class="well">
             <h3 class="text-center">Créé une nouvelle histoire !</h3>
             <form class="form-horizontal" height="100" role="form" action="traitementCreationHistPartie1.php" method="post">

@@ -15,7 +15,7 @@
         
                             <?php } else {?>
                                 
-                        <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalError">
+                        <button type="button" class="histoire col-sm-4 btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#modalError">
                             <?php } ?>
                             <img src="../images/livre-ouvert.png" height ="80" width="100" />
                             <br>

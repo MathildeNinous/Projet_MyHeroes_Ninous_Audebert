@@ -9,6 +9,8 @@
     $statMort->execute();
     $mort = $statMort->fetch();
     ?>
+
+<body style="background-color:#A9A9A9">
     <div class = "container">
         <div class="row justify-content-center ">
             <div class="card col-sm-2" style="width: 50%;">
@@ -60,5 +62,7 @@
         <?php
     }
 ?>
+
+</body>
 
 <script src="../js/test.js"></script>

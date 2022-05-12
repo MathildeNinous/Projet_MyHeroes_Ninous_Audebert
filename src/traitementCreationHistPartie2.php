@@ -35,6 +35,7 @@ for($j=0; $j<count($paragraphe); $j++) {
     body{ background-image: url("../images/bibli.jpg");
           color:black;
           font-size: 1.3em;
+          background-color:#A9A9A9;
         }
     div {
         display: flex;
@@ -64,7 +65,8 @@ for($j=0; $j<count($paragraphe); $j++) {
     }
 </style>
 
-<div>
+<body>
+    <div>
     <h2>HISTOIRE CRÉÉE !</h2>
     <p>
         Vous avez créée votre histoire avec succès, félicitations.<br>
@@ -72,6 +74,8 @@ for($j=0; $j<count($paragraphe); $j++) {
     </p>
     <a class="btn btn-info" href="index.php">Retour à l'accueil</a>
 </div>
+
+</body>
 
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/js/bootstrap.min.js"></script>

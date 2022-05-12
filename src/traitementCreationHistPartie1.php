@@ -83,12 +83,13 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                                 <textarea readonly class="form-control" rows="6" ><?=$paragraphe[$i]?></textarea>
                                 <input type="hidden" name="idParagraphe[]" value="<?=$idParagraphes['Id']?>">
                                 <br>
-                                <?php for($k=0; $k<$nbParagraphe+1; $k++) { ?>
+                                <?php for($k=0; $k<$nbParagraphe; $k++) { ?>
                                     <select name="reponseSortante[]" class="form-control" aria-label="Default select example">
                                         <?php for($j=0; $j<count($reponse); $j++) { ?>    
                                             <option value="<?=$reponse[$j]?>">
                                                 <?=$reponse[$j]?>
                                             </option>
+                                            <option  value=null>Pas de réponse</option>
                                         <?php } ?>
                                     </select>
                                     <br>

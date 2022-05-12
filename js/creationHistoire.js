@@ -51,7 +51,6 @@ function afficherParagraphe() {
         capacite.name = "capacite[]";
         divCol.appendChild(capacite);
 
-
         holder.appendChild(divFormGroup);
     }
 

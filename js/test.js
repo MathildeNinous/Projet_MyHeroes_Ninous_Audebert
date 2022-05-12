@@ -1,4 +1,4 @@
-function afficherHistoire(titre, description,idHistoire) {
+function afficherHistoire(titre, description, idHistoire) {
     $("#modalHistoire .modal-title").text(titre);
     $("#modalHistoire .modal-body").text(description);
     $("#modalHistoire .monHistoire").attr('href','../src/paragraphe.php?titre='+titre);

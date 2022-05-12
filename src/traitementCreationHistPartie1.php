@@ -10,6 +10,7 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
     $capacite = $_POST['capacite'];
     $reponse = $_POST['reponse'];
     $nbParagraphe = $_POST['nbParagraphes']-1;
+    $descriptionParagrapheMort = $_POST['paragrapheMort'];
 
     //creation de l'histoire avec titre/description
     $sql = "INSERT INTO histoire(Titre, Description, PremierParagraphe) VALUES (?,?,null)";
@@ -18,6 +19,16 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
 
     //on récupere l'id de l'histoire qui vient d'être créée
     $idHistoireCree = $bdd->lastInsertId();
+
+    $requeteParagrapheMort = $bdd->prepare("INSERT INTO paragraphe (Description, IdHistoire, Capacite) VALUES (?,?,?)");
+    $requeteParagrapheMort->execute([$descriptionParagrapheMort,$idHistoireCree,1]);
+    $paragrapheMort = $requeteParagrapheMort->fetch();
+
+    
+    $idParagrapheMort = $bdd->lastInsertId();
+
+    $mortHistoire = $bdd->prepare("UPDATE histoire set ParagrapheMort = ? WHERE Id = ?");
+    $mortHistoire->execute([$idParagrapheMort, $idHistoireCree]);
 
     for($i=0; $i <count($paragraphe); $i++) {
         //on insert les paragraphes
@@ -93,7 +104,8 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                                         <?php } ?>
                                     </select>
                                     <br>
-                                <?php } } ?>
+                                <?php } 
+                            } ?>
                         </div>
                     </div>
                     

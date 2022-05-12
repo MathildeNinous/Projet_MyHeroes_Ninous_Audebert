@@ -45,6 +45,13 @@ if(!isset($_GET['titre'])){
         $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation) VALUES (?,?,?,?)");
         $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time()]);
         
+        $newHistoireJoueur = $bdd->lastInsertId();
+
+
+
+        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?;?,?)");
+        $nouvelAvancement->execute([0, $newHistoireJoueur, $histoire['PremierParagraphe']]);
+
         $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
         $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
         $compte = $monCompte->fetch();
@@ -55,14 +62,14 @@ if(!isset($_GET['titre'])){
         $monAvancement->execute([$compte['Id'],'0',$idParagraphe]);
     }else{
         if(!isset($_GET['id'])){
-            header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
+        header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
         }else{
             //test du get
             $testParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
             $testParagraphes->execute([$_GET['id']]);
             $testParagraphe = $testParagraphes->fetch();
             if($testParagraphes->rowCount()==0){
-                erreur();
+              //  erreur();
             }
                 $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=? where Id=?");
                 $creerCompte->execute([$_GET['id'],$compte['Id']]);
@@ -70,21 +77,30 @@ if(!isset($_GET['titre'])){
             }
 
             //On récupère le nombre de paragraphe qu'on à déjà joué
-            $avancement = $bdd->prepare("SELECT Paragraphe,Ordre from avancement WHERE Ordre = (SELECT MAX(Ordre) FROM avancement WHERE HistoireDeJoueur = ?)");
+            $avancement = $bdd->prepare("SELECT Paragraphe, Ordre from avancement WHERE Ordre = (SELECT MAX(Ordre) FROM avancement WHERE HistoireDeJoueur = ?)");
             $avancement->execute([$compte['Id']]);
             $ordre = $avancement->fetch();
 
             //On enregistre l'avencement du joueur
             if($ordre['Paragraphe'] != $_GET['id']){
-            $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
-            $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);
+                $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
+                $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);
         }
     }
 
 
     //On vérifie que le hero n'est pas mort
-    if($compte['Deshydratation']+$compte['Fatigue'] <= -10 && $idParagraphe != $histoire['ParagrapheMort']){
-    header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);}
+    if($compte['Deshydratation']+$compte['Fatigue'] <= -10 && $idParagraphe != $histoire['ParagrapheMort'] && $compte['Mort'] == 0){
+        
+        //On regarde si le paragraphe est le paragraphe de mort
+       
+            $mort = $bdd->prepare("UPDATE histoireDeJoueur SET Mort = ? WHERE Id = ?");
+            $mort->execute([1,$compte['Id']]);?>
+        
+            <p class="description" style = "background-color:#C70039; color:white;">Malheureusement tu es morts avant d'aller au bout de l'aventure</p>
+        <?php
+        header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);
+}
     //On cherche le paragraphe    
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
     //on récupère la capacité du paragraphe
@@ -122,18 +138,10 @@ if(!isset($_GET['titre'])){
                         <p class="row"><?= $choix['Description']?></p>
                     </div>
                 </a>
-                <?php }?>
-                <?php 
-                //On regarde si le paragraphe est le paragraphe de mort
-                if($idParagraphe == $histoire['ParagrapheMort']){
-                    $mort = $bdd->prepare("UPDATE histoireDeJoueur SET Mort = ? WHERE Id = ?");
-                    $mort->execute([1,$compte['Id']]);
-                ?> 
-                    <p class="description" style = "background-color:#C70039; color:white;">Malheureusement tu es morts avant d'aller au bout de l'aventure</p>
-                <?php
-                affichageHistoireFinie($bdd,$compte['Id'],$histoire['Description']);
-                }else{
-                    //On regarde si le paragraphe est un paragraphe de fin
+                <?php }
+                //affichageHistoireFinie($bdd,$compte['Id'],$histoire['Description']);
+                if($idParagraphe != $histoire['ParagrapheMort']){
+                    //On regarde si le paragraphe n'est pas un paragraphe de fin
                  if($mesChoix->rowCount() == 0){ 
                      $finie = $bdd->prepare("UPDATE histoiredejoueur set Finie = ? WHERE Id = ?");
                      $finie->execute([1,$compte['Id']]);

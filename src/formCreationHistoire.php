@@ -10,7 +10,7 @@
     </head>
 
     <body>
-            <div class="well">
+            <div class="container">
                 <h3 class="text-center">Créé une nouvelle histoire !</h3>
                 <form class="form-horizontal" height="100" role="form" action="traitementCreationHistPartie1.php" method="post">
                     <div class="form-group">
@@ -21,6 +21,11 @@
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                             <textarea class="form-control" name="description" rows="3" placeholder="Description de l'histoire" required="" autofocus=""></textarea>    
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                            <textarea class="form-control" name="paragrapheMort" rows="3" placeholder="Entrez le message qui apparait si le héro meurt" required="" autofocus=""></textarea>    
                         </div>
                     </div>
                     <div class="form-group">

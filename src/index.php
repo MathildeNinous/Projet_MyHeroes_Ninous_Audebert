@@ -11,7 +11,7 @@
                     while($ligne = $response->fetch()){
                 if ($ligne['Cacher']==0){
                     if (!empty($_SESSION['nomUtilisateur'])){?>
-                        <button type="button" class="histoire col-sm-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistoire" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description'] ?>','<?=$ligne['Id']?>')">
+                        <button type="button" class="histoire col-sm-4 btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#modalHistoire" onclick="afficherHistoire('<?=$ligne['Titre']?>','<?=$ligne['Description'] ?>','<?=$ligne['Id']?>')">
         
                             <?php } else {?>
                                 

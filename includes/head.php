@@ -32,6 +32,11 @@
           <a class="nav-link" href="../src/statistiques.php">Statistique</a>
         </li>
         <?php } ?>
+        <?php if(isset($_SESSION['Droit'])){ ?>
+        <li class="nav-item">
+          <a class="nav-link" href="../src/formCreationHistoire.php">Créer une histoire</a>
+        </li>
+        <?php } ?>
       </ul>
     </div>
     

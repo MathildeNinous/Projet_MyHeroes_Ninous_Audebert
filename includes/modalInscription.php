@@ -29,12 +29,17 @@
                     </div>
                     <div class="form-group">
                         <div class="mb-3">
+                            <input type="password" name="mdpConfirmed" class="form-control" placeholder="Confirmer votre mot de passe" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="mb-3">
                             <input type="email" name="email" class="form-control" placeholder="Votre email" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> S'inscire</button>
+                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> S'inscrire</button>
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">annuler</button>                        </div>
                     </div>

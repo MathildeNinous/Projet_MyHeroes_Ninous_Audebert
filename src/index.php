@@ -1,6 +1,5 @@
 <?php 
     require_once '../includes/head.php';
-    include '../includes/modalErrors.php';
     include '../includes/modalHistoire.php';
     ?>
 <body>
@@ -22,7 +21,7 @@
                            <?=$ligne['Titre']?>
                         </button>
                         <?php
-                }
+                    }
                 } ?>
         </div>
     </body>

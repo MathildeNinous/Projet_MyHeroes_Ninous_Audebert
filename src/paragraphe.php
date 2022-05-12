@@ -5,7 +5,6 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     ?>
     <div class="description"><?=nl2br($monHistoire) ?></div>
     <?php
-
     $histoire = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
     $histoire->execute([$histoireDeJoueur]);
     while($histoireFinale = $histoire->fetch()){
@@ -23,11 +22,20 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     }
 }
 
+function erreur(){
+        header("Location: ../includes/erreur.php");
+}
+
+if(!isset($_GET['titre'])){
+    erreur();
+}
     //on récupère les informations de l'histoire choisie
     $maRequete = $bdd->prepare("SELECT * FROM histoire  WHERE Titre=?");
     $maRequete->execute([$_GET['titre']]);
     $histoire = $maRequete->fetch();
-
+    if($maRequete->rowCount() == 0){
+        erreur();
+    }  
     //On regarde si le joeur à déjà commencé cette histoire
     $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
     $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
@@ -49,9 +57,17 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
         if(!isset($_GET['id'])){
             header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
         }else{
-            $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=? where Id=?");
-            $creerCompte->execute([$_GET['id'],$compte['Id']]);
-            $idParagraphe = $_GET['id'];
+            //test du get
+            $testParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
+            $testParagraphes->execute([$_GET['id']]);
+            $testParagraphe = $testParagraphes->fetch();
+            if($testParagraphes->rowCount()==0){
+                erreur();
+            }
+                $creerCompte = $bdd->prepare("UPDATE histoiredejoueur set Avancement=? where Id=?");
+                $creerCompte->execute([$_GET['id'],$compte['Id']]);
+                $idParagraphe = $_GET['id'];
+            }
 
             //On récupère le nombre de paragraphe qu'on à déjà joué
             $avancement = $bdd->prepare("SELECT Paragraphe,Ordre from avancement WHERE Ordre = (SELECT MAX(Ordre) FROM avancement WHERE HistoireDeJoueur = ?)");
@@ -61,15 +77,14 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
             //On enregistre l'avencement du joueur
             if($ordre['Paragraphe'] != $_GET['id']){
             $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
-            $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);}
+            $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);
         }
     }
 
 
     //On vérifie que le hero n'est pas mort
     if($compte['Deshydratation']+$compte['Fatigue'] <= -10 && $idParagraphe != $histoire['ParagrapheMort']){
-    header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);
-    }
+    header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);}
     //On cherche le paragraphe    
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
     //on récupère la capacité du paragraphe

@@ -34,7 +34,7 @@
         <?php } ?>
         <?php if(isset($_SESSION['Droit'])){ ?>
         <li class="nav-item">
-          <a class="nav-link" href="../src/formCreationHistoire.php">Créer une histoire</a>
+          <a class="nav-link" href="../includes/formCreationHistoire.php">Créer une histoire</a>
         </li>
         <?php } ?>
       </ul>

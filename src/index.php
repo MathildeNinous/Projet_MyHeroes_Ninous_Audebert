@@ -1,6 +1,7 @@
 <?php 
     require_once '../includes/head.php';
     include '../includes/modalHistoire.php';
+    include '../includes/modalErrors.php';
     ?>
 <body>
     <div class="container">

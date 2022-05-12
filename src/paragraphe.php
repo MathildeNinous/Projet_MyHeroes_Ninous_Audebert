@@ -2,9 +2,6 @@
     require_once '../includes/head.php';
 
 function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
-    ?>
-    <div class="description"><?=nl2br($monHistoire) ?></div>
-    <?php
     $histoire = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
     $histoire->execute([$histoireDeJoueur]);
     while($histoireFinale = $histoire->fetch()){
@@ -37,19 +34,17 @@ if(!isset($_GET['titre'])){
         erreur();
     }  
     //On regarde si le joeur à déjà commencé cette histoire
-    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
-    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
-    $compte = $monCompte->fetch();
-    if(!$compte || $compte['Mort'] != 0 || $compte['Finie'] != 0){
+    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ? AND Finie = ?");
+    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0, 0]);
+    $compte=$monCompte->fetch();
+    if($monCompte->rowCount() == 0){
         //On crée la partie et récupère les informations de la partie
         $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation) VALUES (?,?,?,?)");
         $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time()]);
         
         $newHistoireJoueur = $bdd->lastInsertId();
 
-
-
-        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?;?,?)");
+        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?,?,?)");
         $nouvelAvancement->execute([0, $newHistoireJoueur, $histoire['PremierParagraphe']]);
 
         $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
@@ -87,11 +82,8 @@ if(!isset($_GET['titre'])){
                 $monAvancement->execute([$compte['Id'],$ordre['Ordre']+=1,$idParagraphe]);
         }
     }
-
-
     //On vérifie que le hero n'est pas mort
     if($compte['Deshydratation']+$compte['Fatigue'] <= -10 && $idParagraphe != $histoire['ParagrapheMort'] && $compte['Mort'] == 0){
-        
         //On regarde si le paragraphe est le paragraphe de mort
        
             $mort = $bdd->prepare("UPDATE histoireDeJoueur SET Mort = ? WHERE Id = ?");

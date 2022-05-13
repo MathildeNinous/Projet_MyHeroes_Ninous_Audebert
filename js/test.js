@@ -16,8 +16,8 @@ function RecapHistoire(id){
     $(".recap"+id ).toggle();
 }
 
-function statistique(){
-    $(".statistique").toggle();
+function statistique(id){
+    $(".statistique"+id).toggle();
 }
 
 function MesHistoires(id){

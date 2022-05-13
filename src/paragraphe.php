@@ -2,9 +2,7 @@
     require_once '../includes/head.php';
 
 function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
-    ?>
-    <div class="description"><?=nl2br($monHistoire) ?></div>
-    <?php
+    
     $histoire = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
     $histoire->execute([$histoireDeJoueur]);
     while($histoireFinale = $histoire->fetch()){
@@ -37,19 +35,19 @@ if(!isset($_GET['titre'])){
         erreur();
     }  
     //On regarde si le joeur à déjà commencé cette histoire
-    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
-    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
-    $compte = $monCompte->fetch();
-    if(!$compte || $compte['Mort'] != 0 || $compte['Finie'] != 0){
+    $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ? AND Finie = ?");
+    $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0, 0]);
+    $compte=$monCompte->fetch();
+    if($monCompte->rowCount() == 0){
         //On crée la partie et récupère les informations de la partie
-        $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation) VALUES (?,?,?,?)");
-        $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time()]);
+        $creerCompte = $bdd->prepare("INSERT INTO histoiredejoueur  (IdHistoire, IdJoueur, Avancement, Creation, Souplesse, Puissance, Fatigue, Deshydratation) VALUES (?,?,?,?,?,?,?,?)");
+        $creerCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], $histoire['PremierParagraphe'],time(),0,0,0,0]);
         
         $newHistoireJoueur = $bdd->lastInsertId();
 
 
 
-        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?;?,?)");
+        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?,?,?)");
         $nouvelAvancement->execute([0, $newHistoireJoueur, $histoire['PremierParagraphe']]);
 
         $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
@@ -60,6 +58,7 @@ if(!isset($_GET['titre'])){
         //On enregistre l'avencement du joueur
         $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
         $monAvancement->execute([$compte['Id'],'0',$idParagraphe]);
+        header('Location: paragraphe.php?id='.$idParagraphe.'&titre='.$histoire['Titre']);
     }else{
         if(!isset($_GET['id'])){
         header('Location: paragraphe.php?id='.$compte['Avancement'].'&titre='.$histoire['Titre']);
@@ -99,7 +98,7 @@ if(!isset($_GET['titre'])){
         
             <p class="description" style = "background-color:#C70039; color:white;">Malheureusement tu es morts avant d'aller au bout de l'aventure</p>
         <?php
-        header('Location: paragraphe.php?id='.$histoire['ParagrapheMort'].'&titre='.$histoire['Titre']);
+        $idParagraphe=$histoire['ParagrapheMort'];
 }
     //On cherche le paragraphe    
     $mesParagraphes = $bdd->prepare("SELECT * FROM paragraphe  WHERE Id = ?");
@@ -168,7 +167,7 @@ if(!isset($_GET['titre'])){
             <div class="card-body">
                 <h5 class="card-title"><?=$heroCapacite['Nom']?></h5>
                 <h6 class="card-subtitle mb-2 text-muted">Nombre de point</h6>
-                <p class="card-text" style="color:black;"><?=$point[$nom]?></p>
+                <p class="card-text" style="color:white;"><?=$point[$nom]?></p>
             </div>
             </div>
             <?php } ?>

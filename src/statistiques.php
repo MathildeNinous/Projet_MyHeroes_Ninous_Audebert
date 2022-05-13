@@ -50,8 +50,8 @@
                         <li class="list-group-item" style="background-color:#DCDCDC;"><b><?=$mesHistoires['Titre']?></b></li>
                         <li class="list-group-item" style="background-color:#DCDCDC;"><i><?=$mesHistoires['Description']?></i></li>
                         <li class="list-group-item row" style="background-color: #A2D9CE">
-                            <button type="button" class="btn voirStatistique" style="background-color:#77B5FE;" onclick="statistique()">Statistiques</button>
-                            <ul class="col-sm-12 statistique pt-2 pb-2" style="background-color:#77B5FE;">
+                            <button type="button" class="btn voirStatistique" style="background-color:#77B5FE;" onclick="statistique(<?=$mesHistoires['Id']?>)">Statistiques</button>
+                            <ul class="col-sm-12 statistique statistique<?=$mesHistoires['Id']?> pt-2 pb-2" style="background-color:#77B5FE;">
                                 <li class="card rounded" style="background-color:#77B5FE;"><p>Nombre de parties jouées </p></li>
                                 <li class="card rounded"><p><?php if(isset($histoiredeJoueur['nbPartie'])){echo $histoiredeJoueur['nbPartie'];}else{echo 0;}?></p></li>
                                 <li class="card rounded"><p>Nombre de morts</p></li>

@@ -1,5 +1,9 @@
 function afficherParagraphe() {
     const nbParagraphes = document.getElementById("nbParagraphes").value;
+    if(nbParagraphes < 3 ){
+        alert("Vous devez entrez au moins 3 paragraphes");
+    }else{
+        $('#validNbParagraphes').hide();
     const holder = document.getElementById("paragraphesContainer");
 
     for (let i = 0; i < nbParagraphes; i++) {
@@ -10,20 +14,14 @@ function afficherParagraphe() {
         divCol.className = "w-100";
         divFormGroup.appendChild(divCol);
         
+          
         //Affichage paragraphe
         const titre = document.createElement("h4");
         titre.textContent = "Paragraphe " + (i+1);
         titre.style.fontWeight="bold";
         titre.style.marginTop = "1em";
         divCol.appendChild(titre);
-
-        const area = document.createElement("textarea");
-        area.className = "form-control";
-        area.name = "paragraphe[]";
-        area.rows = "10";
-        area.placeholder = "Veuillez écrire le contenu du paragraphe que vous souhaitez créer"
-        divCol.appendChild(area);
-
+        
         //Affichage zone texte réponse pour tous les paragraphes sauf le premier
         if (i != 0) {
             const txt = document.createElement("p");
@@ -37,25 +35,46 @@ function afficherParagraphe() {
             rep.name = "reponse[]";
             divCol.appendChild(rep);
         } 
+      
+
+        const area = document.createElement("textarea");
+        area.className = "form-control";
+        area.name = "paragraphe[]";
+        area.rows = "10";
+        area.placeholder = "Veuillez écrire le contenu du paragraphe que vous souhaitez créer"
+        divCol.appendChild(area);
+
 
         //affichage choix capacité
         const txtCapacite = document.createElement("p");
         txtCapacite.textContent = "Entrez un chiffre entre 1 et 4 pour choisir une capacité";
         divCol.appendChild(txtCapacite);
 
-        const capacite = document.createElement("input");
-        capacite.className= "form-control";
-        capacite.type = "number";
-        capacite.min="1";
-        capacite.max="4";
-        capacite.placeholder = "1,2,3 ou 4";
-        capacite.name = "capacite[]";
-        divCol.appendChild(capacite);
+        const listCapacite = document.createElement("select");
+        listCapacite.className = "capacite form-control";
+        listCapacite.name = "capacite[]";
+        divCol.appendChild(listCapacite);
+        const capacite1 = document.createElement("option");
+        capacite1.textContent="Puisssance";
+        capacite1.value='1';
+        listCapacite.appendChild(capacite1);
+        const capacite2 = document.createElement("option");
+        capacite2.textContent="Souplesse";
+        capacite2.value='2';
+        listCapacite.appendChild(capacite2);
+        const capacite3 = document.createElement("option");
+        capacite3.textContent="Fatigue";
+        capacite3.value='3';
+        listCapacite.appendChild(capacite3);
+        const capacite4 = document.createElement("option");
+        capacite4.textContent="Deshydratation";
+        capacite4.value='4';
+        listCapacite.appendChild(capacite4);
 
         holder.appendChild(divFormGroup);
     }
 
-    
+}
 }
 
 

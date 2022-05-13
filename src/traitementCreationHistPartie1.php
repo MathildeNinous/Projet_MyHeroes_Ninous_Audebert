@@ -97,8 +97,8 @@ if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['para
                                             <option value="<?=$reponse[$j]?>">
                                                 <?=$reponse[$j]?>
                                             </option>
-                                            <option  value=null>Pas de réponse</option>
                                         <?php } ?>
+                                        <option  value=null>Pas de réponse</option>
                                     </select>
                                     <br>
                                 <?php } 

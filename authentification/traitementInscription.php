@@ -22,11 +22,11 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['nomUtilisat
     while ($ligne = $resultat->fetch())
     {
         if($ligne['NomUtilisateur'] == $nomUtilisateur){
-            $error="Identifiant déjà utilisé. Veuillez changer d'identifiant";
+          header('Location: ../includes/modalErrors.php');
         }
     }
     if($mdp != $mdpConfirme){
-        $error="Mauvaise saisie du mot de passe";
+        header('Location: ../includes/modalErrors.php');
     }
 
     

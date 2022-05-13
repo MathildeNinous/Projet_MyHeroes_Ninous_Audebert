@@ -54,7 +54,7 @@ if(!isset($_GET['titre'])){
 
         //On enregistre l'avencement du joueur
         $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
-        $monAvancement->execute([$compte['Id'],'1',$idParagraphe]);
+        $monAvancement->execute([$compte['Id'],'0',$idParagraphe]);
         header('Location: paragraphe.php?id='.$idParagraphe.'&titre='.$histoire['Titre']);
     }else{
         if(!isset($_GET['id'])){

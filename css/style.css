@@ -55,3 +55,12 @@ img {
     color:#044879;
     padding: 10%;
 }
+
+.histoireEnCours{
+    text-transform: uppercase;
+    border: solid white 3px;
+    border-radius: 30px;
+    background-color: white;
+    color:#044879;
+    padding: 10%;
+}

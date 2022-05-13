@@ -8,7 +8,6 @@ function afficherHistoire(titre, description, idHistoire) {
 }
 
 function redirection(){
-    console.log($(".monHistoire").attr('href'));
     window.location.replace($(".monHistoire").attr('href'));
 }
 

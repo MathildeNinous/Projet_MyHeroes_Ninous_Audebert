@@ -3,9 +3,9 @@
 
 function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
     
-    $histoire = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
-    $histoire->execute([$histoireDeJoueur]);
-    while($histoireFinale = $histoire->fetch()){
+    $avancement = $bdd->prepare("SELECT * from avancement WHERE HistoireDeJoueur = ? ORDER BY Ordre");
+    $avancement->execute([$histoireDeJoueur]);
+    while($histoireFinale = $avancement->fetch()){
         $paragraphe= $bdd->prepare("SELECT Description FROM paragraphe WHERE Id = ?");
         $paragraphe->execute([$histoireFinale['Paragraphe']]);
         $descriptionParagraphe = $paragraphe->fetch(); ?>
@@ -18,6 +18,8 @@ function affichageHistoireFinie($bdd,$histoireDeJoueur, $monHistoire){
         <p><?php if($descriptionChoix){echo nl2br($descriptionChoix[0]);} ?></p></div>
         <?php
     }
+    ?>
+     <?php
 }
 
 function erreur(){
@@ -45,11 +47,6 @@ if(!isset($_GET['titre'])){
         
         $newHistoireJoueur = $bdd->lastInsertId();
 
-
-
-        $nouvelAvancement = $bdd->prepare("INSERT INTO avancement (Ordre, HistoireDeJoueur, Paragraphe) values (?,?,?)");
-        $nouvelAvancement->execute([0, $newHistoireJoueur, $histoire['PremierParagraphe']]);
-
         $monCompte = $bdd->prepare("SELECT * FROM histoiredejoueur  WHERE IdHistoire=? AND IdJoueur = ? AND Mort = ?");
         $monCompte->execute([$histoire['Id'],$_SESSION['idUtilisateur'], 0]);
         $compte = $monCompte->fetch();
@@ -57,7 +54,7 @@ if(!isset($_GET['titre'])){
 
         //On enregistre l'avencement du joueur
         $monAvancement = $bdd->prepare("INSERT INTO avancement (HistoireDeJoueur, Ordre, Paragraphe) VALUES (?,?,?)");
-        $monAvancement->execute([$compte['Id'],'0',$idParagraphe]);
+        $monAvancement->execute([$compte['Id'],'1',$idParagraphe]);
         header('Location: paragraphe.php?id='.$idParagraphe.'&titre='.$histoire['Titre']);
     }else{
         if(!isset($_GET['id'])){
@@ -138,7 +135,6 @@ if(!isset($_GET['titre'])){
                     </div>
                 </a>
                 <?php }
-                //affichageHistoireFinie($bdd,$compte['Id'],$histoire['Description']);
                 if($idParagraphe != $histoire['ParagrapheMort']){
                     //On regarde si le paragraphe n'est pas un paragraphe de fin
                  if($mesChoix->rowCount() == 0){ 

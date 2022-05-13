@@ -34,8 +34,9 @@
                         ?>
                         <li class="list-group-item row justify-content-between afficheHistoire histoire<?=$histoire['Id']?>">
                             <div class="row justify-content-between" >
-                                <p class="col-sm-6"><?=$maPartie['Creation']?></p>
-                                <p class="col-sm-6"><button class="btn btn-secondary" onclick="RecapHistoire(<?=$maPartie['Id']?>)">Voir</button></p>
+                                <p class="col-sm-4"><?=$maPartie['Creation']?></p>
+                                <p class="col-sm-4">Nombre de points : <?=$maPartie['Souplesse']+$maPartie['Puissance']?></p>
+                                <p class="col-sm-4"><button class="btn btn-secondary" onclick="RecapHistoire(<?=$maPartie['Id']?>)">Voir</button></p>
                             </div>
                         </li>
                         <li class="list-group-item recap recap<?=$maPartie['Id'] ?>"><?=affichageHistoireFinie($bdd,$maPartie['Id'],$histoire['Id'])?></li>
